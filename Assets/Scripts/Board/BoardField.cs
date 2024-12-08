@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class BoardField : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public PropertyField property;
 
-    // Update is called once per frame
-    void Update()
+    
+
+    public void OnPlayerLand(Player pl)
     {
-        
+        Debug.Log($"Gracz {pl.playerName} stoi na polu {property.fieldname}");
     }
+}
+
+[System.Serializable]
+public class PropertyField
+{
+    public string fieldname;
+    public int price;
+    public Player owner;
+
+
 }
