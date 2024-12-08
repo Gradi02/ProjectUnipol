@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] canvas;
-
+    [SerializeField] private PlayerUICard[] uicards;
 
     private void Start()
     {
@@ -17,14 +18,16 @@ public class UIManager : MonoBehaviour
         SwitchCanva("SelectPlayer");
     }
 
-    public void StartGame()
-    {
-        SwitchCanva("GameOverlay");
-    }
 
     public void GoBack()
     {
         SwitchCanva("StartCanva");
+    }
+
+    public void StartGame()
+    {
+        SwitchCanva("GameOverlay");
+        GameManager.instance.StartGame(uicards);
     }
 
 
