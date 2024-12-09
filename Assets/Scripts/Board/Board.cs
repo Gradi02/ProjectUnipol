@@ -30,10 +30,12 @@ public class Board : MonoBehaviour
     {
         for(int i=0; i<num; i++)
         {
+            fields[pl.currentPosition].OnPlayerVisitExit();
             yield return new WaitForSeconds(0.2f);
             pl.currentPosition++;
             if(pl.currentPosition >= fields.Length)
                 pl.currentPosition = 0;
+            fields[pl.currentPosition].OnPlayerVisitEnter();
 
             pl.gameObject.transform.position = fields[pl.currentPosition].transform.position + offsets[pl.offsetIndex];
         }

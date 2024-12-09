@@ -22,4 +22,9 @@ public class PlayerOverlayCard : MonoBehaviour
         username.text = "Empty :(";
         cash.text = "$0";
     }
+
+    public void SetCashText(string s)
+    {
+        cash.text = s;
+    }
 }
