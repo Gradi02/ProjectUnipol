@@ -6,6 +6,9 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    private Queue<GameEvent> events = new Queue<GameEvent>();
+    private bool isEventEnded = true;
+
     [Header("References")]
     [SerializeField] private PlayerOverlayCard[] uiPlayersCards;
     [SerializeField] private GameObject playerPrefab;
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour
     public List<Player> players { get; private set; } = new List<Player>();
     public int currentPlayerIndex { get; private set; } = 0;
 
+    public List<Card> cards = new List<Card>();
 
     public Board board;
 
@@ -71,23 +75,35 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(isGameStarted && canStartNextTurn)
+        //events
+        if (events.Count > 0)
         {
-            if (dublet)
+            if (isEventEnded)
             {
-                dublet = false;
-                canStartNextTurn = false;
-                ShowPlayerState(true);
+                isEventEnded = false;
+                events.Dequeue().RunEvent();
             }
-            else
+        }
+        else
+        {
+            if (isGameStarted && canStartNextTurn)
             {
-                NextPlayer();
+                canStartNextTurn = false;
+                if (dublet)
+                {
+                    dublet = false;
+                    ShowPlayerState(true);
+                }
+                else
+                {
+                    NextPlayer();
+                }
             }
         }
     }
 
 
-    //BUTTONS
+    #region BUTTONS
 
     public void RollButton()
     {
@@ -100,8 +116,12 @@ public class GameManager : MonoBehaviour
         int num = k1 + k2;
         if (k1 == k2)
         {
-            StartCoroutine(IETransitionState("Double Throw!"));
+            events.Enqueue(new InfoEvent("Double Throw!"));
             dublet = true;
+        }
+        else
+        {
+            events.Enqueue(new InfoEvent($"{k1} : {k2}"));
         }
 
         board.MovePlayer(players[currentPlayerIndex], num);
@@ -135,18 +155,21 @@ public class GameManager : MonoBehaviour
         currentPlayer.AddFieldToList(field);
         field.OnBuy(currentPlayer);
         buyCanva.SetActive(false);
+
+        isEventEnded = true;
         canStartNextTurn = true;
     }
 
     public void BuyButtonNo()
     {
         buyCanva.SetActive(false);
+
+        isEventEnded = true;
         canStartNextTurn = true;
     }
 
+    #endregion
 
-
-    //GameStates
 
     private void NextPlayer()
     {
@@ -164,7 +187,7 @@ public class GameManager : MonoBehaviour
         }
         
         string t = $"{players[currentPlayerIndex].playerName}'s Turn!";
-        StartCoroutine(IETransitionState(t, true));
+        AddGameEvent(new InfoEvent(t, true));
     }
 
     private void ShowPlayerState(bool show)
@@ -174,30 +197,9 @@ public class GameManager : MonoBehaviour
         playerTurnCanva.SetActive(show);
     }
 
-
-    //after landed on new tail returns function
-    public void AskForBuyOrUpgrade(string ask)
+    public void AddGameEvent(GameEvent ev)
     {
-        buyText.text = ask;
-        buyCanva.SetActive(true);
-    }
-
-    public void NotEnoughtMoneyInfo(string ask)
-    {
-        StartCoroutine(IETransitionState(ask, false, true));
-    }
-
-    public void StandOnSpecialCard()
-    {
-        string t = $"Karta Specjalne TODO: EVENT";
-        StartCoroutine(IETransitionState(t, false, true));
-    }
-
-    public void PaidAction(Player payer, Player owner, int price, string p)
-    {
-        StartCoroutine(IETransitionState(p, false, true));
-        payer.money -= price;
-        owner.money += price;
+        events.Enqueue(ev);
     }
 
     public void ElseState()
@@ -207,7 +209,11 @@ public class GameManager : MonoBehaviour
 
 
 
-    private IEnumerator IETransitionState(string title, bool nextIE = false, bool nextPlayer = false)
+    //Pamiêta
+    //Na konieæ ka¿dego eventu w grze ustaw isEventEnded na true ORAZ jeœli gracz nie podejmuje docelowo ¿adnej decyzji po evencie 
+    //to ustawiæ canStartNextTurn na true -> inaczej mo¿e dojœæ do wiecznej pauzy w GameLoopie 
+    
+    public IEnumerator IEShowEvent(string title, bool nextIE = false)
     {
         transitionText.text = title;
         transitionCanva.SetActive(true);
@@ -215,8 +221,100 @@ public class GameManager : MonoBehaviour
         transitionCanva.SetActive(false);
 
         if (nextIE)
+        {
             ShowPlayerState(true);
-        else if(nextPlayer)
-            canStartNextTurn = true;
+            isEventEnded = true;
+            yield break;
+        }
+
+        canStartNextTurn = true;
+        isEventEnded = true;
+        yield return null;
+    }
+
+    public IEnumerator IEBuildEvent(string ask)
+    {
+        buyText.text = ask;
+        buyCanva.SetActive(true);
+
+        canStartNextTurn = false;
+        yield return null;
+    }
+
+    public IEnumerator IEPayPlayerEvent(string ask, Player payer, Player owner, int price)
+    {
+        payer.money -= price;
+        owner.money += price;
+
+        transitionText.text = ask;
+        transitionCanva.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        transitionCanva.SetActive(false);
+
+        canStartNextTurn = true;
+        isEventEnded = true;
+        yield return null;
+    }
+}
+
+
+
+
+public abstract class GameEvent
+{
+    public abstract void RunEvent();
+}
+
+public class InfoEvent : GameEvent
+{
+    private string titleText;
+    bool nextIE = false;
+
+    public InfoEvent(string title, bool next = false)
+    {
+        titleText = title;
+        nextIE = next;
+    }
+
+    public override void RunEvent()
+    {
+        GameManager.instance.StartCoroutine(GameManager.instance.IEShowEvent(titleText, nextIE));
+    }
+}
+
+public class BuyEvent : GameEvent
+{
+    private string titleText;
+    
+    public BuyEvent(string title)
+    {
+        titleText = title;
+    }
+
+    public override void RunEvent()
+    {
+        GameManager.instance.StartCoroutine(GameManager.instance.IEBuildEvent(titleText));
+    }
+}
+
+public class PayToPlayerEvent : GameEvent
+{
+    private string titleText;
+    private Player payer;
+    private Player owner;
+    private int price;
+
+    public PayToPlayerEvent(string txt, Player payer, Player owner, int price)
+    {
+        titleText = txt;
+
+        this.payer = payer;
+        this.owner = owner;
+        this.price = price;
+    }
+
+    public override void RunEvent()
+    {
+        GameManager.instance.StartCoroutine(GameManager.instance.IEPayPlayerEvent(titleText, payer, owner, price));
     }
 }

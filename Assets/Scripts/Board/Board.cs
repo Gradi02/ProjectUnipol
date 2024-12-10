@@ -17,7 +17,6 @@ public class Board : MonoBehaviour
         for(int i = 0; i < pl.Count; i++)
         {
             pl[i].gameObject.transform.position = fields[0].transform.position + offsets[i];
-            pl[i].offsetIndex = i;
         }
     }
 
@@ -30,16 +29,22 @@ public class Board : MonoBehaviour
     {
         for(int i=0; i<num; i++)
         {
-            fields[pl.currentPosition].OnPlayerVisitExit();
-            yield return new WaitForSeconds(0.2f);
+            fields[pl.currentPosition].OnPlayerVisitExit(pl);
             pl.currentPosition++;
             if(pl.currentPosition >= fields.Length)
                 pl.currentPosition = 0;
-            fields[pl.currentPosition].OnPlayerVisitEnter();
-
-            pl.gameObject.transform.position = fields[pl.currentPosition].transform.position + offsets[pl.offsetIndex];
+            fields[pl.currentPosition].OnPlayerVisitEnter(pl);
+            yield return new WaitForSeconds(0.2f);
         }
 
-        fields[pl.currentPosition].OnPlayerLand(pl);
+        GameEvent ev = fields[pl.currentPosition].OnPlayerLand(pl);
+        if(ev != null)
+        {
+            GameManager.instance.AddGameEvent(ev);
+        }
+        else
+        {
+            GameManager.instance.ElseState();
+        }
     }
 }

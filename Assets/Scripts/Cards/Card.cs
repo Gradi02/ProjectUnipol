@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class Card : MonoBehaviour
+public abstract class Card : MonoBehaviour
 {
-    
+    public Sprite cardImage;
+    public abstract void RunCardEvent();
 }
