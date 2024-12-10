@@ -133,6 +133,7 @@ public class GameManager : MonoBehaviour
         }
 
         currentPlayer.AddFieldToList(field);
+        field.OnBuy(currentPlayer);
         buyCanva.SetActive(false);
         canStartNextTurn = true;
     }

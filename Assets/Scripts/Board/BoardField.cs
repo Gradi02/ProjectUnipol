@@ -1,13 +1,22 @@
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class BoardField : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI visitPrice, fname;
+    [SerializeField] private Image bg, ramka;
+    [SerializeField] private Color countryColor;
+
     private const int maxLevel = 4;
     public PropertyField property;
 
     private void Start()
     {
         property.defaultMat = gameObject.GetComponent<MeshRenderer>().material;
+        fname.text = property.fieldname;
+        visitPrice.text = "";
+        bg.color = countryColor;
     }
 
 
@@ -95,6 +104,18 @@ public class BoardField : MonoBehaviour
     {
         property.owner = null;
         gameObject.GetComponent<MeshRenderer>().material = property.defaultMat;
+    }
+
+    public void OnBuy(Player pl)
+    {
+        if(property.currentVisitPrice < 1000000)
+        {
+            visitPrice.text = $"{property.currentVisitPrice/1000}K";
+        }
+        else
+        {
+            visitPrice.text = $"{property.currentVisitPrice/1000000}M";
+        }
     }
 
     public enum FieldsType
