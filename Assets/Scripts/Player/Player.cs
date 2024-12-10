@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
     public List<BoardField> ownedProperties { get; private set; }
     public bool isActive { get; set; } = true;
     public int currentPosition { get; set; } = 0;
-    public int offsetIndex { get; set; }
 
 
     public void SetUp(PlayerOverlayCard c, string usn)

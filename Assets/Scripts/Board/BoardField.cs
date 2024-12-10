@@ -1,29 +1,90 @@
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class BoardField : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI visitPrice, fname;
+    [SerializeField] private Image bg, ramka;
+
     private const int maxLevel = 4;
     public PropertyField property;
 
+    private readonly Vector3[][] offsets =
+    {
+        new[] 
+        {
+            new Vector3(0, 0.25f, 0) 
+        },
+        new[]
+        {
+            new Vector3(0, 0.25f, 0.15f),
+            new Vector3(0, 0.25f, -0.15f)
+        },
+        new[]
+        {
+            new Vector3(0.15f, 0.25f, 0.15f),
+            new Vector3(0.15f, 0.25f, -0.15f),
+            new Vector3(-0.15f, 0.25f, 0)
+        },
+        new[] 
+        { 
+            new Vector3(0.15f, 0.25f, 0.15f),
+            new Vector3(0.15f, 0.25f, -0.15f),
+            new Vector3(-0.15f, 0.25f, -0.15f),
+            new Vector3(-0.15f, 0.25f, 0.15f)
+        }
+    };
+
     private void Start()
     {
-        property.defaultMat = gameObject.GetComponent<MeshRenderer>().material;
+        fname.text = property.fieldname;
+
+        if(property.ftype == FieldsType.Normal)
+            visitPrice.text = "";
     }
 
 
 
 
-    public void OnPlayerVisitEnter()
+    public void OnPlayerVisitEnter(Player pl)
     {
+        List<Player> phere = new List<Player>();
 
+        foreach(Player p in GameManager.instance.players)
+        {
+            if(p.currentPosition == pl.currentPosition)
+            {
+                phere.Add(p);
+            }
+        }
+
+        for(int i=0; i<phere.Count; i++)
+        {
+            phere[i].gameObject.transform.position = transform.position + offsets[phere.Count - 1][i];
+        }
     }
 
-    public void OnPlayerVisitExit()
+    public void OnPlayerVisitExit(Player pl)
     {
+        List<Player> phere = new List<Player>();
 
+        foreach (Player p in GameManager.instance.players)
+        {
+            if (p.currentPosition == pl.currentPosition && p != pl)
+            {
+                phere.Add(p);
+            }
+        }
+
+        for (int i = 0; i < phere.Count; i++)
+        {
+            phere[i].gameObject.transform.position = transform.position + offsets[phere.Count - 1][i];
+        }
     }
 
-    public void OnPlayerLand(Player pl)
+    public GameEvent OnPlayerLand(Player pl)
     {
         Debug.Log($"Gracz {pl.playerName} stoi na polu {property.fieldname}");
         
@@ -34,14 +95,12 @@ public class BoardField : MonoBehaviour
                 if(pl.money >= property.price)
                 {
                     string s = $"Do You Want To Buy {property.fieldname} For {property.price}?";
-                    GameManager.instance.AskForBuyOrUpgrade(s);
-                    return;
+                    return new BuyEvent(s);
                 }
                 else
                 {
                     string t = $"Player {pl.playerName} Have Not Enought Money To Buy This Tile!";
-                    GameManager.instance.NotEnoughtMoneyInfo(t);
-                    return;
+                    return new InfoEvent(t);
                 }
             }
             else if(property.owner == pl)
@@ -51,14 +110,12 @@ public class BoardField : MonoBehaviour
                     if (pl.money >= property.upgradePrice[property.level])
                     {
                         string s = $"Do You Want To Upgrade {property.fieldname} For {property.price} To Level {property.level+2}?";
-                        GameManager.instance.AskForBuyOrUpgrade(s);
-                        return;
+                        return new BuyEvent(s);
                     }
                     else
                     {
                         string t = $"Player {pl.playerName} Have Not Enought Money To Upgrade This Tile!";
-                        GameManager.instance.NotEnoughtMoneyInfo(t);
-                        return;
+                        return new InfoEvent(t);
                     }
                 }
             }
@@ -67,24 +124,22 @@ public class BoardField : MonoBehaviour
                 if(pl.money >= property.currentVisitPrice)
                 {
                     string t = $"Player {pl.playerName} Paid ${property.currentVisitPrice} To {property.owner.playerName}!";
-                    GameManager.instance.PaidAction(pl, property.owner, property.currentVisitPrice, t);
-                    return;
+                    return new PayToPlayerEvent(t, pl, property.owner, property.currentVisitPrice);
                 }
                 else
                 {
                     string t = $"Player {pl.playerName} Have Not Enought Money To Pay To Player {property.owner.playerName}!";
-                    GameManager.instance.NotEnoughtMoneyInfo(t);
-                    return;
+                    return new InfoEvent(t);
                 }
             }
         }
         else
         {
-            GameManager.instance.StandOnSpecialCard();
-            return;
+            //los lub karta specjalna
+            return new InfoEvent("TODO: karta specjalna");
         }
 
-        GameManager.instance.ElseState();
+        return null;
     }
 
 
@@ -94,7 +149,18 @@ public class BoardField : MonoBehaviour
     public void ResetField()
     {
         property.owner = null;
-        gameObject.GetComponent<MeshRenderer>().material = property.defaultMat;
+    }
+
+    public void OnBuy(Player pl)
+    {
+        if(property.currentVisitPrice < 1000000)
+        {
+            visitPrice.text = $"{property.currentVisitPrice/1000}K";
+        }
+        else
+        {
+            visitPrice.text = $"{property.currentVisitPrice/1000000}M";
+        }
     }
 
     public enum FieldsType
@@ -108,10 +174,6 @@ public class BoardField : MonoBehaviour
 [System.Serializable]
 public class PropertyField
 {
-    public Material defaultMat { get; set; }
-
-
-
     public BoardField.FieldsType ftype = BoardField.FieldsType.Normal;
     public string fieldname;
     public bool canBuy = true;
