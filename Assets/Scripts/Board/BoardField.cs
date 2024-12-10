@@ -6,17 +6,16 @@ public class BoardField : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI visitPrice, fname;
     [SerializeField] private Image bg, ramka;
-    [SerializeField] private Color countryColor;
 
     private const int maxLevel = 4;
     public PropertyField property;
 
     private void Start()
     {
-        property.defaultMat = gameObject.GetComponent<MeshRenderer>().material;
         fname.text = property.fieldname;
-        visitPrice.text = "";
-        bg.color = countryColor;
+
+        if(property.ftype == FieldsType.Normal)
+            visitPrice.text = "";
     }
 
 
@@ -103,7 +102,6 @@ public class BoardField : MonoBehaviour
     public void ResetField()
     {
         property.owner = null;
-        gameObject.GetComponent<MeshRenderer>().material = property.defaultMat;
     }
 
     public void OnBuy(Player pl)
@@ -129,10 +127,6 @@ public class BoardField : MonoBehaviour
 [System.Serializable]
 public class PropertyField
 {
-    public Material defaultMat { get; set; }
-
-
-
     public BoardField.FieldsType ftype = BoardField.FieldsType.Normal;
     public string fieldname;
     public bool canBuy = true;
