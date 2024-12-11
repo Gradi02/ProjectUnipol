@@ -37,14 +37,8 @@ public class Board : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
 
-        GameEvent ev = fields[pl.currentPosition].OnPlayerLand(pl);
-        if(ev != null)
-        {
-            GameManager.instance.AddGameEvent(ev);
-        }
-        else
-        {
-            GameManager.instance.ElseState();
-        }
+        GameManager.instance.isStateEnded = true;
+        GameState st = fields[pl.currentPosition].OnPlayerLand(pl);
+        GameManager.instance.AddEvent(st);
     }
 }

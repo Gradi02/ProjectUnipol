@@ -7,18 +7,23 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     private Queue<GameEvent> events = new Queue<GameEvent>();
-    private bool isEventEnded = true;
+    public bool isEventEnded = true;
+    public GameState currentState { get; private set; } = GameState.idle;
+    public bool isStateEnded = true;
 
     [Header("References")]
     [SerializeField] private PlayerOverlayCard[] uiPlayersCards;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Shader shader;
-    [SerializeField] private GameObject transitionCanva, playerTurnCanva, cardCanva, buyCanva;
-    [SerializeField] private TextMeshProUGUI transitionText, buyText;
+    [SerializeField] private GameObject transitionCanva, playerTurnCanva, cardCanva, buyCanva, upgradeCanva;
+    [SerializeField] private TextMeshProUGUI transitionText, buyText, upgradeText;
     [SerializeField] private Button rollButton, surrenderButton;
+    [SerializeField] private Button[] upgrades;
+    [SerializeField] private Color defaultColor, selectedColor;
 
 
     public static GameManager instance { get; private set; }
+    public bool isGameStarted { get; private set; } = false;
     public List<Player> players { get; private set; } = new List<Player>();
     public int currentPlayerIndex { get; private set; } = 0;
 
@@ -26,8 +31,8 @@ public class GameManager : MonoBehaviour
 
     public Board board;
 
-    private bool dublet = false, canStartNextTurn = true, isGameStarted = false;
-
+    private bool dublet = false;
+    private int upgradeSelectionIndex = -1;
 
 
     private void Awake()
@@ -39,6 +44,7 @@ public class GameManager : MonoBehaviour
         playerTurnCanva.SetActive(false);
         cardCanva.SetActive(false);
         buyCanva.SetActive(false);
+        upgradeCanva.SetActive(false);
     }
 
     public void StartGame(PlayerUICard[] p)
@@ -71,110 +77,34 @@ public class GameManager : MonoBehaviour
 
         currentPlayerIndex = Random.Range(0, players.Count);
         isGameStarted = true;
+        AddEvent(GameState.endTurn);
     }
 
     private void Update()
     {
-        //events
-        if (events.Count > 0)
+        if(isEventEnded && events.Count > 0)
         {
-            if (isEventEnded)
-            {
-                isEventEnded = false;
-                events.Dequeue().RunEvent();
-            }
+            isEventEnded = false;
+            events.Dequeue().RunEvent();
         }
-        else
+        
+        if(events.Count == 0 && isEventEnded && isStateEnded && isGameStarted)
         {
-            if (isGameStarted && canStartNextTurn)
-            {
-                canStartNextTurn = false;
-                if (dublet)
-                {
-                    dublet = false;
-                    ShowPlayerState(true);
-                }
-                else
-                {
-                    NextPlayer();
-                }
-            }
+            AddEvent(GameState.endTurn);
         }
     }
 
-
-    #region BUTTONS
-
-    public void RollButton()
+    public void AddEvent(string t)
     {
-        playerTurnCanva.SetActive(false);
-
-        int k1 = Random.Range(1, 6);
-        int k2 = Random.Range(1, 6);
-        Debug.Log($"k1: {k1}, k2: {k2}");
-
-        int num = k1 + k2;
-        if (k1 == k2)
-        {
-            events.Enqueue(new InfoEvent("Double Throw!"));
-            dublet = true;
-        }
-        else
-        {
-            events.Enqueue(new InfoEvent($"{k1} : {k2}"));
-        }
-
-        board.MovePlayer(players[currentPlayerIndex], num);
+        events.Enqueue(new ShowInfoEvent(t));
     }
 
-    public void SurrenderButton()
+    public void AddEvent(GameState s)
     {
-        playerTurnCanva.SetActive(false);
-
-        players[currentPlayerIndex].Surrender();
-        NextPlayer();
+        events.Enqueue(new ChangeStateEvent(s));
     }
-
-    public void BuyButtonYes()
+    public void NextPlayer()
     {
-        Player currentPlayer = players[currentPlayerIndex];
-        BoardField field = board.fields[currentPlayer.currentPosition];
-
-        if (field.property.owner == null)
-        {
-            field.property.owner = currentPlayer;
-            currentPlayer.money -= field.property.price;
-            field.gameObject.GetComponent<MeshRenderer>().material = currentPlayer.gameObject.GetComponent<MeshRenderer>().material;
-        }
-        else
-        {
-            currentPlayer.money -= field.property.upgradePrice[field.property.level];
-            field.property.level++;
-        }
-
-        currentPlayer.AddFieldToList(field);
-        field.OnBuy(currentPlayer);
-        buyCanva.SetActive(false);
-
-        isEventEnded = true;
-        canStartNextTurn = true;
-    }
-
-    public void BuyButtonNo()
-    {
-        buyCanva.SetActive(false);
-
-        isEventEnded = true;
-        canStartNextTurn = true;
-    }
-
-    #endregion
-
-
-    private void NextPlayer()
-    {
-        canStartNextTurn = false;
-
         currentPlayerIndex++;
         if (currentPlayerIndex >= players.Count)
             currentPlayerIndex = 0;
@@ -187,59 +117,256 @@ public class GameManager : MonoBehaviour
         }
         
         string t = $"{players[currentPlayerIndex].playerName}'s Turn!";
-        AddGameEvent(new InfoEvent(t, true));
+        AddEvent(t);
+
+        //change state
+        isStateEnded = true;
+        AddEvent(GameState.awaitingRollDecision);
     }
 
-    private void ShowPlayerState(bool show)
+
+    #region BUTTONS
+
+    public void RollButton()
+    {
+        if (currentState == GameState.awaitingRollDecision)
+        {
+            isStateEnded = true;
+            AddEvent(GameState.awaitingRoll);
+        }
+    }
+
+    public void SurrenderButton()
+    {
+        if (currentState == GameState.awaitingRollDecision)
+        {
+            players[currentPlayerIndex].Surrender();
+            isStateEnded = true;
+        }
+    }
+
+    public void BuyButtonYes()
+    {
+        if (currentState == GameState.awaitingBuyDecision)
+        {
+            Player currentPlayer = players[currentPlayerIndex];
+            BoardField field = board.fields[currentPlayer.currentPosition];
+
+            field.property.owner = currentPlayer;
+            currentPlayer.money -= field.property.price;
+
+            currentPlayer.AddFieldToList(field);
+            field.OnBuy(currentPlayer);
+
+            isStateEnded = true;
+        }
+
+    }
+
+    public void BuyButtonNo()
+    {
+        if (currentState == GameState.awaitingBuyDecision)
+        {
+            isStateEnded = true;
+        }
+    }
+
+
+    public void ConfirmUpgradeSelection()
+    {
+        if (currentState == GameState.awaitingUpgradeDecision)
+        {
+            if (upgradeSelectionIndex == -1)
+            {
+                isStateEnded = true;
+                return;
+            }
+            else
+            {
+                Player currentPlayer = players[currentPlayerIndex];
+                BoardField field = board.fields[currentPlayer.currentPosition];
+                
+                currentPlayer.money -= field.property.upgradePrice[field.property.level];
+                field.property.level++;
+
+                field.OnUpgrade();
+            }
+
+            isStateEnded = true;
+        }
+    }
+
+    public void SwitchUpgradeSelection(int idx)
+    {
+        if (currentState == GameState.awaitingUpgradeDecision)
+        {
+            if (upgradeSelectionIndex == idx)
+            {
+                upgradeSelectionIndex = -1;
+                upgrades[idx].GetComponent<Image>().color = defaultColor;
+            }
+            else
+            {
+                if(upgradeSelectionIndex != -1)
+                    upgrades[upgradeSelectionIndex].GetComponent<Image>().color = defaultColor;
+
+                upgradeSelectionIndex = idx;
+                upgrades[idx].GetComponent<Image>().color = selectedColor;
+            }
+        }
+    }
+
+    #endregion
+
+    #region States
+
+    public void ChangeState(GameState newState)
+    {
+        if (isStateEnded)
+        {
+            isStateEnded = false;
+            currentState = newState;
+            OnStateEnter(currentState);
+        }
+    }
+
+    private void OnStateEnter(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.endTurn:
+                {
+                    HandleNextTurn();
+                    break;
+                }
+            case GameState.awaitingRollDecision:
+                {
+                    HandleRollDecision();
+                    break;
+                }
+            case GameState.awaitingRoll:
+                {
+                    HandleRoll();
+                    break;
+                }
+            case GameState.awaitingBuyDecision:
+                {
+                    BuyHandle();
+                    break;
+                }
+            case GameState.awaitingUpgradeDecision:
+                {
+                    BuyHandle(false);
+                    break;
+                }
+            case GameState.awaitingPayPlayer:
+                {
+                    PayPlayerHandle();
+                    break;
+                }
+            case GameState.awaitingSpecialCard:
+                {
+                    //TODO
+                    break;
+                }
+        }
+    }
+    private void HandleNextTurn()
+    {
+        playerTurnCanva.SetActive(false);
+        cardCanva.SetActive(false);
+        buyCanva.SetActive(false);
+        upgradeCanva.SetActive(false);
+
+        if (dublet)
+        {
+            dublet = false;
+            isStateEnded = true;
+            AddEvent(GameState.awaitingRollDecision);
+        }
+        else
+        {
+            NextPlayer();
+        }
+    }
+
+    private void HandleRollDecision()
     {
         rollButton.interactable = true;
         surrenderButton.interactable = true;
-        playerTurnCanva.SetActive(show);
+        playerTurnCanva.SetActive(true);
     }
 
-    public void AddGameEvent(GameEvent ev)
+    private void HandleRoll()
     {
-        events.Enqueue(ev);
+        playerTurnCanva.SetActive(false);
+
+        int k1 = Random.Range(1, 6);
+        int k2 = Random.Range(1, 6);
+
+        int num = k1 + k2;
+        if (k1 == k2)
+        {
+            AddEvent("Double Throw!");
+            dublet = true;
+        }
+        else
+        {
+            AddEvent($"{k1} : {k2}");
+        }
+
+        board.MovePlayer(players[currentPlayerIndex], num);
     }
 
-    public void ElseState()
+    private void BuyHandle(bool buy = true)
     {
-        canStartNextTurn = true;
+        Player cp = players[currentPlayerIndex];
+        BoardField bf = board.fields[cp.currentPosition];
+        
+        if (buy)
+        {
+            string s = $"Do You Want To Buy {bf.property.fieldname} For {bf.property.price}?";
+            buyText.text = s;
+            buyCanva.SetActive(true);
+            return;
+        }
+
+        string s2 = $"Do You Want To Upgrade {bf.property.fieldname}?";
+        upgradeText.text = s2;
+
+        upgradeSelectionIndex = -1;
+        foreach(Button b in upgrades)
+        {
+            b.GetComponent<Image>().color = defaultColor;
+        }
+
+        upgradeCanva.SetActive(true);
     }
 
+    private void PayPlayerHandle()
+    {
+        Player cp = players[currentPlayerIndex];
+        BoardField bf = board.fields[cp.currentPosition];
+        Player owner = bf.property.owner;
+
+        string t = $"Player {cp.playerName} Paid ${bf.property.currentVisitPrice} To {bf.property.owner.playerName}!";
+        StartCoroutine(IEPayPlayerEvent(t, cp, owner, bf.property.currentVisitPrice));
+    }
+
+    #endregion 
 
 
-    //Pamiêta
-    //Na konieæ ka¿dego eventu w grze ustaw isEventEnded na true ORAZ jeœli gracz nie podejmuje docelowo ¿adnej decyzji po evencie 
-    //to ustawiæ canStartNextTurn na true -> inaczej mo¿e dojœæ do wiecznej pauzy w GameLoopie 
-    
-    public IEnumerator IEShowEvent(string title, bool nextIE = false)
+    //ENUMERATORS
+    public IEnumerator IEShowInfo(string title)
     {
         transitionText.text = title;
         transitionCanva.SetActive(true);
         yield return new WaitForSeconds(2f);
         transitionCanva.SetActive(false);
 
-        if (nextIE)
-        {
-            ShowPlayerState(true);
-            isEventEnded = true;
-            yield break;
-        }
-
-        canStartNextTurn = true;
         isEventEnded = true;
         yield return null;
-    }
-
-    public IEnumerator IEBuildEvent(string ask)
-    {
-        buyText.text = ask;
-        buyCanva.SetActive(true);
-
-        canStartNextTurn = false;
-        yield return null;
-    }
+    } 
 
     public IEnumerator IEPayPlayerEvent(string ask, Player payer, Player owner, int price)
     {
@@ -251,70 +378,51 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         transitionCanva.SetActive(false);
 
-        canStartNextTurn = true;
+        isStateEnded = true;
         isEventEnded = true;
         yield return null;
     }
 }
 
-
-
+public enum GameState
+{
+    idle,
+    awaitingRoll,
+    awaitingRollDecision,
+    awaitingBuyDecision,
+    awaitingUpgradeDecision,
+    awaitingPayPlayer,
+    awaitingSpecialCard,
+    endTurn
+}
 
 public abstract class GameEvent
 {
     public abstract void RunEvent();
 }
-
-public class InfoEvent : GameEvent
+public class ShowInfoEvent : GameEvent
 {
-    private string titleText;
-    bool nextIE = false;
-
-    public InfoEvent(string title, bool next = false)
+    private string text;
+    public ShowInfoEvent(string t)
     {
-        titleText = title;
-        nextIE = next;
+        text = t;
     }
-
     public override void RunEvent()
     {
-        GameManager.instance.StartCoroutine(GameManager.instance.IEShowEvent(titleText, nextIE));
+        GameManager.instance.StartCoroutine(GameManager.instance.IEShowInfo(text));
     }
 }
 
-public class BuyEvent : GameEvent
+public class ChangeStateEvent : GameEvent
 {
-    private string titleText;
-    
-    public BuyEvent(string title)
+    GameState state;
+    public ChangeStateEvent(GameState nstate)
     {
-        titleText = title;
+        state = nstate;
     }
-
     public override void RunEvent()
     {
-        GameManager.instance.StartCoroutine(GameManager.instance.IEBuildEvent(titleText));
-    }
-}
-
-public class PayToPlayerEvent : GameEvent
-{
-    private string titleText;
-    private Player payer;
-    private Player owner;
-    private int price;
-
-    public PayToPlayerEvent(string txt, Player payer, Player owner, int price)
-    {
-        titleText = txt;
-
-        this.payer = payer;
-        this.owner = owner;
-        this.price = price;
-    }
-
-    public override void RunEvent()
-    {
-        GameManager.instance.StartCoroutine(GameManager.instance.IEPayPlayerEvent(titleText, payer, owner, price));
+        GameManager.instance.ChangeState(state);
+        GameManager.instance.isEventEnded = true;
     }
 }

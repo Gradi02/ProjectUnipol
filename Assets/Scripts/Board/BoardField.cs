@@ -84,7 +84,7 @@ public class BoardField : MonoBehaviour
         }
     }
 
-    public GameEvent OnPlayerLand(Player pl)
+    public GameState OnPlayerLand(Player pl)
     {
         Debug.Log($"Gracz {pl.playerName} stoi na polu {property.fieldname}");
         
@@ -94,13 +94,13 @@ public class BoardField : MonoBehaviour
             {
                 if(pl.money >= property.price)
                 {
-                    string s = $"Do You Want To Buy {property.fieldname} For {property.price}?";
-                    return new BuyEvent(s);
+                    return GameState.awaitingBuyDecision;
                 }
                 else
                 {
                     string t = $"Player {pl.playerName} Have Not Enought Money To Buy This Tile!";
-                    return new InfoEvent(t);
+                    GameManager.instance.AddEvent(t);
+                    return GameState.endTurn;
                 }
             }
             else if(property.owner == pl)
@@ -109,13 +109,13 @@ public class BoardField : MonoBehaviour
                 {
                     if (pl.money >= property.upgradePrice[property.level])
                     {
-                        string s = $"Do You Want To Upgrade {property.fieldname} For {property.price} To Level {property.level+2}?";
-                        return new BuyEvent(s);
+                        return GameState.awaitingUpgradeDecision;
                     }
                     else
                     {
                         string t = $"Player {pl.playerName} Have Not Enought Money To Upgrade This Tile!";
-                        return new InfoEvent(t);
+                        GameManager.instance.AddEvent(t);
+                        return GameState.endTurn;
                     }
                 }
             }
@@ -123,23 +123,24 @@ public class BoardField : MonoBehaviour
             {
                 if(pl.money >= property.currentVisitPrice)
                 {
-                    string t = $"Player {pl.playerName} Paid ${property.currentVisitPrice} To {property.owner.playerName}!";
-                    return new PayToPlayerEvent(t, pl, property.owner, property.currentVisitPrice);
+                    return GameState.awaitingPayPlayer;
                 }
                 else
                 {
                     string t = $"Player {pl.playerName} Have Not Enought Money To Pay To Player {property.owner.playerName}!";
-                    return new InfoEvent(t);
+                    GameManager.instance.AddEvent(t);
+                    return GameState.endTurn;
                 }
             }
         }
         else
         {
             //los lub karta specjalna
-            return new InfoEvent("TODO: karta specjalna");
+            GameManager.instance.AddEvent("TODO: karta specjalna");
+            return GameState.awaitingSpecialCard;
         }
 
-        return null;
+        return GameState.endTurn;
     }
 
 
@@ -149,6 +150,8 @@ public class BoardField : MonoBehaviour
     public void ResetField()
     {
         property.owner = null;
+        property.currentVisitPrice = 0;
+        visitPrice.text = "";
     }
 
     public void OnBuy(Player pl)
@@ -161,6 +164,11 @@ public class BoardField : MonoBehaviour
         {
             visitPrice.text = $"{property.currentVisitPrice/1000000}M";
         }
+    }
+
+    public void OnUpgrade()
+    {
+
     }
 
     public enum FieldsType
