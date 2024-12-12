@@ -7,9 +7,14 @@ public class BoardField : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI visitPrice, fname;
     [SerializeField] private Image bg, ramka;
+    [SerializeField] private Transform[] buildingsTransforms;
+    [SerializeField] private GameObject[] buildingsPrefs;
 
-    private const int maxLevel = 4;
+
+    private const int maxLevel = 5;
+    private GameObject[] buildingsReferences = new GameObject[4];
     public PropertyField property;
+
 
     private readonly Vector3[][] offsets =
     {
@@ -105,9 +110,9 @@ public class BoardField : MonoBehaviour
             }
             else if(property.owner == pl)
             {
-                if(property.level < maxLevel)
+                if(property.level < maxLevel - 1)
                 {
-                    if (pl.money >= property.upgradePrice[property.level])
+                    if (pl.money >= property.upgradePrices[property.level-1])
                     {
                         return GameState.awaitingUpgradeDecision;
                     }
@@ -117,6 +122,10 @@ public class BoardField : MonoBehaviour
                         GameManager.instance.AddEvent(t);
                         return GameState.endTurn;
                     }
+                }
+                else
+                {
+                    return GameState.endTurn;
                 }
             }
             else
@@ -139,8 +148,6 @@ public class BoardField : MonoBehaviour
             GameManager.instance.AddEvent("TODO: karta specjalna");
             return GameState.awaitingSpecialCard;
         }
-
-        return GameState.endTurn;
     }
 
 
@@ -150,25 +157,89 @@ public class BoardField : MonoBehaviour
     public void ResetField()
     {
         property.owner = null;
-        property.currentVisitPrice = 0;
+        property.level = 0;
         visitPrice.text = "";
+        ChangeBuildingCount();
     }
 
     public void OnBuy(Player pl)
     {
-        if(property.currentVisitPrice < 1000000)
+        property.owner = pl;
+        property.level = 1;
+
+        ChangeBuildingCount();
+        FormatString();
+    }
+
+    public void OnUpgrade(int upgrIdx)
+    {
+        int previousLevel = property.level;
+        property.level = upgrIdx+1;
+
+        int prc = 0;
+        for(int i=previousLevel; i<property.level; i++)
         {
-            visitPrice.text = $"{property.currentVisitPrice/1000}K";
+            prc += property.upgradePrices[i-1];
         }
-        else
+        property.owner.money -= prc;
+
+        ChangeBuildingCount();
+        FormatString();
+    }
+
+
+    private void ChangeBuildingCount()
+    {
+        if(property.level == maxLevel-1)
         {
-            visitPrice.text = $"{property.currentVisitPrice/1000000}M";
+            for (int i = 0; i < maxLevel-2; i++)
+            {
+                if (buildingsReferences[i] != null)
+                {
+                    Destroy(buildingsReferences[i]);
+                    buildingsReferences[i] = null;
+                }
+            }
+
+            buildingsReferences[maxLevel - 2] = Instantiate(buildingsPrefs[maxLevel - 2], buildingsTransforms[maxLevel - 2].position, transform.rotation);
+            buildingsReferences[maxLevel - 2].GetComponent<MeshRenderer>().material = property.owner.GetComponent<MeshRenderer>().material;
+            buildingsReferences[maxLevel - 2].transform.SetParent(transform, true);
+
+            return;
+        }
+
+        for(int i=0; i<maxLevel-1; i++)
+        {
+            if (property.level > i)
+            {
+                if (buildingsReferences[i] == null)
+                {
+                    buildingsReferences[i] = Instantiate(buildingsPrefs[i], buildingsTransforms[i].position, transform.rotation);
+                    buildingsReferences[i].GetComponent<MeshRenderer>().material = property.owner.GetComponent<MeshRenderer>().material;
+                    buildingsReferences[i].transform.SetParent(transform, true);
+                }
+            }
+            else
+            {
+                if(buildingsReferences[i] != null)
+                {
+                    Destroy(buildingsReferences[i]);
+                    buildingsReferences[i] = null;
+                }
+            }
         }
     }
 
-    public void OnUpgrade()
+    private void FormatString()
     {
-
+        if (property.currentVisitPrice < 1000000)
+        {
+            visitPrice.text = $"{property.currentVisitPrice / 1000}K";
+        }
+        else
+        {
+            visitPrice.text = $"{property.currentVisitPrice / 1000000}M";
+        }
     }
 
     public enum FieldsType
@@ -187,9 +258,9 @@ public class PropertyField
     public bool canBuy = true;
     public int price = 10000;
     public Player owner = null;
-    public int currentVisitPrice = 10000;
 
     public int level = 0;
-    public int[] upgradePrice;
-
+    public int currentVisitPrice => visitPrices[level-1];
+    public int[] upgradePrices = { 25000, 50000, 200000 };
+    private int[] visitPrices = { 5000, 20000, 50000, 100000 };
 }

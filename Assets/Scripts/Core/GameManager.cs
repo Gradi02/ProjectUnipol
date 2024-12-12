@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button rollButton, surrenderButton;
     [SerializeField] private Button[] upgrades;
     [SerializeField] private Color defaultColor, selectedColor;
+    [SerializeField] private TextMeshProUGUI[] upgradesText;
 
 
     public static GameManager instance { get; private set; }
@@ -152,9 +153,7 @@ public class GameManager : MonoBehaviour
             Player currentPlayer = players[currentPlayerIndex];
             BoardField field = board.fields[currentPlayer.currentPosition];
 
-            field.property.owner = currentPlayer;
             currentPlayer.money -= field.property.price;
-
             currentPlayer.AddFieldToList(field);
             field.OnBuy(currentPlayer);
 
@@ -184,12 +183,9 @@ public class GameManager : MonoBehaviour
             else
             {
                 Player currentPlayer = players[currentPlayerIndex];
-                BoardField field = board.fields[currentPlayer.currentPosition];
-                
-                currentPlayer.money -= field.property.upgradePrice[field.property.level];
-                field.property.level++;
+                BoardField field = board.fields[currentPlayer.currentPosition];    
 
-                field.OnUpgrade();
+                field.OnUpgrade(upgradeSelectionIndex);
             }
 
             isStateEnded = true;
@@ -338,6 +334,36 @@ public class GameManager : MonoBehaviour
         foreach(Button b in upgrades)
         {
             b.GetComponent<Image>().color = defaultColor;
+            b.interactable = true;
+        }
+
+        upgradesText[0].text = "Owned!";
+        int off = bf.property.level - 1;
+        int idx = 1 + off;
+        for(int i=0 + off; i<3; i++)
+        {
+            int prc = 0;
+            for (int j = off; j < idx; j++)
+            {
+                prc += bf.property.upgradePrices[j];
+            }
+            idx++;
+            upgradesText[i + 1].text = "Buy For: $" + prc;
+            upgrades[i + 1].interactable = cp.money >= prc;
+        }
+
+        for(int i=0; i<4; i++)
+        {
+            if(bf.property.level > i)
+            {
+                upgrades[i].interactable = false;
+                upgradesText[i].text = "Owned!";
+            }
+        }
+
+        if(bf.property.level < 3)
+        {
+            upgrades[3].interactable = false;
         }
 
         upgradeCanva.SetActive(true);
@@ -361,7 +387,7 @@ public class GameManager : MonoBehaviour
     {
         transitionText.text = title;
         transitionCanva.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.1f);
         transitionCanva.SetActive(false);
 
         isEventEnded = true;
