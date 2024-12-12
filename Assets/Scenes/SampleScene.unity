@@ -711,6 +711,11 @@ MonoBehaviour:
   - {fileID: 398873962}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   selectedColor: {r: 0.6301887, g: 0.6301887, b: 0.6301887, a: 1}
+  upgradesText:
+  - {fileID: 1991058464}
+  - {fileID: 1592104999}
+  - {fileID: 992068308}
+  - {fileID: 1975201294}
   cards: []
   board: {fileID: 2102300334}
 --- !u!4 &120711435
@@ -1723,6 +1728,10 @@ PrefabInstance:
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.currentVisitPrice
       value: 500000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
@@ -3019,6 +3028,10 @@ PrefabInstance:
       value: 500000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -3720,6 +3733,10 @@ PrefabInstance:
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.currentVisitPrice
       value: 500000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
@@ -5687,6 +5704,10 @@ PrefabInstance:
       value: 500000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -6842,6 +6863,10 @@ PrefabInstance:
       value: 500000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -7125,6 +7150,10 @@ PrefabInstance:
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.currentVisitPrice
       value: 500000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
@@ -10568,6 +10597,10 @@ PrefabInstance:
       value: 500000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -11943,6 +11976,10 @@ PrefabInstance:
       value: 500000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -13297,6 +13334,10 @@ PrefabInstance:
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.currentVisitPrice
       value: 500000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
