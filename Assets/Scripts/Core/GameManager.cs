@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     [Header("States")]
     public State endTurnS;
-    public State awaitRollS, awaitRollDecS, awaitBuyS, awaitUpgrDecS, awaitPayPlayerState;
+    public State awaitRollS, awaitRollDecS, awaitBuyS, awaitUpgrDecS, awaitPayPlayerState, awaitingSellState, awaitCard;
 
     [Header("References")]
     [SerializeField] private PlayerOverlayCard[] uiPlayersCards;

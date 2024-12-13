@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public bool isActive { get; set; } = true;
     public int currentPosition { get; set; } = 0;
 
+    [SerializeField] private ParticleSystem ps;
 
     public void SetUp(PlayerOverlayCard c, string usn)
     {
@@ -50,6 +51,11 @@ public class Player : MonoBehaviour
     public void AddFieldToList(BoardField f)
     {
         ownedProperties.Add(f);
+    }
+
+    public void OnMove()
+    {
+        ps.Play();
     }
 
     string FormatMoney(int amount)

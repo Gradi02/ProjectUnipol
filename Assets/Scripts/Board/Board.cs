@@ -34,6 +34,7 @@ public class Board : MonoBehaviour
             if(pl.currentPosition >= fields.Length)
                 pl.currentPosition = 0;
             fields[pl.currentPosition].OnPlayerVisitEnter(pl);
+            pl.OnMove();
             yield return new WaitForSeconds(0.2f);
         }
 
