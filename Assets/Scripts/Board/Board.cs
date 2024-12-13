@@ -38,7 +38,6 @@ public class Board : MonoBehaviour
         }
 
         GameManager.instance.isStateEnded = true;
-        GameState st = fields[pl.currentPosition].OnPlayerLand(pl);
-        GameManager.instance.AddEvent(st);
+        fields[pl.currentPosition].OnPlayerLand(pl);
     }
 }

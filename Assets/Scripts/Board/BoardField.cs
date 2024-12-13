@@ -41,6 +41,7 @@ public class BoardField : MonoBehaviour
             new Vector3(-0.15f, 0.25f, 0.15f)
         }
     };
+    private GameManager gameManager => GameManager.instance;
 
     private void Start()
     {
@@ -57,7 +58,7 @@ public class BoardField : MonoBehaviour
     {
         List<Player> phere = new List<Player>();
 
-        foreach(Player p in GameManager.instance.players)
+        foreach(Player p in gameManager.players)
         {
             if(p.currentPosition == pl.currentPosition)
             {
@@ -75,7 +76,7 @@ public class BoardField : MonoBehaviour
     {
         List<Player> phere = new List<Player>();
 
-        foreach (Player p in GameManager.instance.players)
+        foreach (Player p in gameManager.players)
         {
             if (p.currentPosition == pl.currentPosition && p != pl)
             {
@@ -89,7 +90,7 @@ public class BoardField : MonoBehaviour
         }
     }
 
-    public GameState OnPlayerLand(Player pl)
+    public void OnPlayerLand(Player pl)
     {
         Debug.Log($"Gracz {pl.playerName} stoi na polu {property.fieldname}");
         
@@ -99,13 +100,15 @@ public class BoardField : MonoBehaviour
             {
                 if(pl.money >= property.price)
                 {
-                    return GameState.awaitingBuyDecision;
+                    gameManager.AddEvent(gameManager.awaitBuyS);
+                    return;
                 }
                 else
                 {
                     string t = $"Player {pl.playerName} Have Not Enought Money To Buy This Tile!";
-                    GameManager.instance.AddEvent(t);
-                    return GameState.endTurn;
+                    gameManager.AddEvent(t);
+                    gameManager.AddEvent(gameManager.endTurnS);
+                    return;
                 }
             }
             else if(property.owner == pl)
@@ -114,39 +117,44 @@ public class BoardField : MonoBehaviour
                 {
                     if (pl.money >= property.upgradePrices[property.level-1])
                     {
-                        return GameState.awaitingUpgradeDecision;
+                        gameManager.AddEvent(gameManager.awaitUpgrDecS);
+                        return;
                     }
                     else
                     {
                         string t = $"Player {pl.playerName} Have Not Enought Money To Upgrade This Tile!";
-                        GameManager.instance.AddEvent(t);
-                        return GameState.endTurn;
+                        gameManager.AddEvent(t);
+                        gameManager.AddEvent(gameManager.endTurnS);
+                        return; 
                     }
                 }
                 else
                 {
-                    return GameState.endTurn;
+                    gameManager.AddEvent(gameManager.endTurnS);
+                    return;
                 }
             }
             else
             {
                 if(pl.money >= property.currentVisitPrice)
                 {
-                    return GameState.awaitingPayPlayer;
+                    gameManager.AddEvent(gameManager.awaitPayPlayerState);
+                    return;
                 }
                 else
                 {
                     string t = $"Player {pl.playerName} Have Not Enought Money To Pay To Player {property.owner.playerName}!";
-                    GameManager.instance.AddEvent(t);
-                    return GameState.endTurn;
+                    gameManager.AddEvent(t);
+                    gameManager.AddEvent(gameManager.endTurnS);
+                    return;
                 }
             }
         }
         else
         {
             //los lub karta specjalna
-            GameManager.instance.AddEvent("TODO: karta specjalna");
-            return GameState.awaitingSpecialCard;
+            gameManager.AddEvent("TODO: karta specjalna");
+            return;
         }
     }
 
