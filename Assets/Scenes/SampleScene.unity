@@ -873,14 +873,19 @@ MonoBehaviour:
   - {fileID: 1750506374}
   playerPrefab: {fileID: 5228333244535578459, guid: 3fce130ea09a5e84fbba150388e055e4, type: 3}
   shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  cards:
+  - {fileID: 1542962310}
+  cardSprite: {fileID: 2132851459}
   transitionCanva: {fileID: 2011887028}
   playerTurnCanva: {fileID: 1505325209}
-  cardCanva: {fileID: 1679299167}
+  cardCanva: {fileID: 31648981}
   buyCanva: {fileID: 1913753238}
   upgradeCanva: {fileID: 1274713274}
   transitionText: {fileID: 1018762677}
   buyText: {fileID: 926196252}
   upgradeText: {fileID: 2123433509}
+  cardDesc: {fileID: 1353794714}
+  cardTitle: {fileID: 544170613}
   rollButton: {fileID: 1110217204}
   surrenderButton: {fileID: 198545577}
   upgrades:
@@ -895,7 +900,6 @@ MonoBehaviour:
   - {fileID: 1592104999}
   - {fileID: 992068308}
   - {fileID: 1975201294}
-  cards: []
   board: {fileID: 2102300334}
 --- !u!4 &120711435
 Transform:
@@ -1288,8 +1292,40 @@ PrefabInstance:
       value: 0.5169811
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.ftype
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.price
+      value: 50000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
-      value: "MPK \u0141\xF3d\u017A"
+      value: Dworzec MPK
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.upgradePrices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[0]'
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[1]'
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[2]'
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[3]'
+      value: 40000
       objectReference: {fileID: 0}
     - target: {fileID: 8665844287975213331, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: m_Color.b
@@ -1639,7 +1675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5747863834158195969, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: m_Pivot.x
@@ -3279,7 +3315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.price
-      value: 100000
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
@@ -3298,6 +3334,22 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[0]'
+      value: 15000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[1]'
+      value: 25000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[2]'
+      value: 45000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[3]'
+      value: 160000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: 'property.upgradePrice.Array.data[0]'
       value: 10000
       objectReference: {fileID: 0}
@@ -3312,6 +3364,18 @@ PrefabInstance:
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: 'property.upgradePrice.Array.data[3]'
       value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.upgradePrices.Array.data[0]'
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.upgradePrices.Array.data[1]'
+      value: 60000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.upgradePrices.Array.data[2]'
+      value: 110000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4167,12 +4231,16 @@ PrefabInstance:
       value: 0.41960785
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.ftype
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.price
-      value: 100000
+      value: 50000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
-      value: "MPK \u0141\xF3d\u017A"
+      value: Dworzec MPK
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.currentVisitPrice
@@ -4185,6 +4253,26 @@ PrefabInstance:
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.upgradePrices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[0]'
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[1]'
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[2]'
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[3]'
+      value: 40000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: 'property.upgradePrice.Array.data[0]'
@@ -4378,7 +4466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.price
@@ -4891,7 +4979,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1355195861150570636, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: m_Name
-      value: Los
+      value: egz
       objectReference: {fileID: 0}
     - target: {fileID: 1727372800817285993, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: m_LocalScale.x
@@ -4971,7 +5059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.price
@@ -5805,7 +5893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
@@ -6706,8 +6794,40 @@ PrefabInstance:
       value: 0.5169811
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.ftype
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.price
+      value: 50000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
-      value: "MPK \u0141\xF3d\u017A"
+      value: Dworzec MPK
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.upgradePrices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[0]'
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[1]'
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[2]'
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[3]'
+      value: 40000
       objectReference: {fileID: 0}
     - target: {fileID: 8665844287975213331, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: m_Color.b
@@ -7340,7 +7460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.price
-      value: 100000
+      value: 6000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
@@ -7357,6 +7477,22 @@ PrefabInstance:
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.upgradePrice.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[0]'
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[1]'
+      value: 40000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[2]'
+      value: 50000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[3]'
+      value: 170000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: 'property.upgradePrice.Array.data[0]'
@@ -9393,8 +9529,40 @@ PrefabInstance:
       value: 0.5169811
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.ftype
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.price
+      value: 50000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
-      value: "MPK \u0141\xF3d\u017A"
+      value: Dworzec MPK
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.visitPrices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.upgradePrices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[0]'
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[1]'
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[2]'
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[3]'
+      value: 40000
       objectReference: {fileID: 0}
     - target: {fileID: 8665844287975213331, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: m_Color.b
@@ -9566,8 +9734,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1542962309}
+  - component: {fileID: 1542962310}
   m_Layer: 0
-  m_Name: GoToTrain
+  m_Name: Stypendium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9588,6 +9757,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1973791319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1542962310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542962308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42720658f12df6149821bdb780165bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardImage: {fileID: -2081028789, guid: 7e14a16dc84369c4ebb66c41a54c760b, type: 3}
+  cardName: Stypendium
+  desc: "Gracz po wykonaniu ruchu przez nast\u0119pne 3 tury otrzyma stypendium w
+    wysoko\u015Bci $10000"
 --- !u!1 &1549596775
 GameObject:
   m_ObjectHideFlags: 0
@@ -10744,7 +10929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5747863834158195969, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: m_Pivot.x
@@ -10848,41 +11033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606c1ac38f781a94ea41c7b813e9b629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1679299167
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1679299168}
-  m_Layer: 5
-  m_Name: cardCanva
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1679299168
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1679299167}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2067504158}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1686075061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12278,7 +12428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
-      value: Radiostacja
+      value: Biedronka
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12679,7 +12829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.price
-      value: 100000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
@@ -12698,6 +12848,22 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[0]'
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[1]'
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[2]'
+      value: 40000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.visitPrices.Array.data[3]'
+      value: 150000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: 'property.upgradePrice.Array.data[0]'
       value: 10000
       objectReference: {fileID: 0}
@@ -12711,6 +12877,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: 'property.upgradePrice.Array.data[3]'
+      value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: 'property.upgradePrices.Array.data[2]'
       value: 100000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -13438,7 +13608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.price
@@ -13637,7 +13807,6 @@ RectTransform:
   - {fileID: 1505325210}
   - {fileID: 2011887029}
   - {fileID: 31648982}
-  - {fileID: 1679299168}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

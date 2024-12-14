@@ -9,6 +9,7 @@ public class BoardField : MonoBehaviour
     [SerializeField] private Image bg, ramka;
     [SerializeField] private Transform[] buildingsTransforms;
     [SerializeField] private GameObject[] buildingsPrefs;
+    [SerializeField] private GameObject mpkPref => buildingsPrefs[3];
 
 
     private const int maxLevel = 5;
@@ -47,7 +48,7 @@ public class BoardField : MonoBehaviour
     {
         fname.text = property.fieldname;
 
-        if(property.ftype == FieldsType.Normal)
+        if(property.ftype == FieldsType.Normal || property.ftype == FieldsType.MPK)
             visitPrice.text = "";
     }
 
@@ -91,9 +92,7 @@ public class BoardField : MonoBehaviour
     }
 
     public void OnPlayerLand(Player pl)
-    {
-        Debug.Log($"Gracz {pl.playerName} stoi na polu {property.fieldname}");
-        
+    {        
         if(property.ftype == FieldsType.Normal)
         {
             if(property.owner == null)
@@ -150,6 +149,44 @@ public class BoardField : MonoBehaviour
                 }
             }
         }
+        else if(property.ftype == FieldsType.Card)
+        {
+            gameManager.AddEvent(gameManager.awaitCard);
+            return;
+        }
+        else if (property.ftype == FieldsType.MPK)
+        {
+            if (property.owner == null)
+            {
+                if (pl.money >= property.price)
+                {
+                    gameManager.AddEvent(gameManager.awaitBuyS);
+                    return;
+                }
+                else
+                {
+                    string t = $"Player {pl.playerName} Have Not Enought Money To Buy This Tile!";
+                    gameManager.AddEvent(t);
+                    gameManager.AddEvent(gameManager.endTurnS);
+                    return;
+                }
+            }
+            else
+            {
+                if (pl.money >= property.currentVisitPrice)
+                {
+                    gameManager.AddEvent(gameManager.awaitPayPlayerState);
+                    return;
+                }
+                else
+                {
+                    string t = $"Player {pl.playerName} Have Not Enought Money To Pay To Player {property.owner.playerName}!";
+                    gameManager.AddEvent(t);
+                    gameManager.AddEvent(gameManager.endTurnS);
+                    return;
+                }
+            }
+        }
         else
         {
             //los lub karta specjalna
@@ -172,11 +209,31 @@ public class BoardField : MonoBehaviour
 
     public void OnBuy(Player pl)
     {
-        property.owner = pl;
-        property.level = 1;
+        if (property.ftype == FieldsType.Normal)
+        {
+            property.owner = pl;
+            property.level = 1;
 
-        ChangeBuildingCount();
-        FormatString();
+            ChangeBuildingCount();
+            FormatString();
+        }
+        else if(property.ftype == FieldsType.MPK)
+        {
+            property.owner = pl;
+            property.level = maxLevel - 1;
+
+            buildingsReferences[maxLevel - 2] = Instantiate(mpkPref, buildingsTransforms[maxLevel - 2].position, transform.rotation);
+            buildingsReferences[maxLevel - 2].GetComponent<MeshRenderer>().material = property.owner.GetComponent<MeshRenderer>().material;
+            buildingsReferences[maxLevel - 2].transform.SetParent(transform, true);
+
+            foreach(BoardField f in pl.ownedProperties)
+            {
+                if(f.property.ftype == FieldsType.MPK)
+                {
+                    f.FormatString();
+                }
+            }
+        }
     }
 
     public void OnUpgrade(int upgrIdx)
@@ -240,13 +297,16 @@ public class BoardField : MonoBehaviour
 
     private void FormatString()
     {
-        if (property.currentVisitPrice < 1000000)
+        if (property.owner != null)
         {
-            visitPrice.text = $"{property.currentVisitPrice / 1000}K";
-        }
-        else
-        {
-            visitPrice.text = $"{property.currentVisitPrice / 1000000}M";
+            if (property.currentVisitPrice < 1000000)
+            {
+                visitPrice.text = $"{property.currentVisitPrice / 1000}K";
+            }
+            else
+            {
+                visitPrice.text = $"{property.currentVisitPrice / 1000000}M";
+            }
         }
     }
 
@@ -254,6 +314,7 @@ public class BoardField : MonoBehaviour
     {
         Normal,
         Card,
+        MPK,
         Special
     }
 }
@@ -263,12 +324,21 @@ public class PropertyField
 {
     public BoardField.FieldsType ftype = BoardField.FieldsType.Normal;
     public string fieldname;
-    public bool canBuy = true;
-    public int price = 10000;
     public Player owner = null;
+    [HideInInspector] public int level = 0;
+    [HideInInspector] public int price => Board.pricingsInstance.prices[fieldname].price;
+    [HideInInspector] public int[] upgradePrices => Board.pricingsInstance.prices[fieldname].upgradePreices;
+    [HideInInspector] public int[] visitPrices => Board.pricingsInstance.prices[fieldname].visitPrice;
+    public int currentVisitPrice
+    {
+        get
+        {
+            if(ftype == BoardField.FieldsType.MPK)
+            {
+                return visitPrices[owner.GetMpksNumber()-1];
+            }
 
-    public int level = 0;
-    public int currentVisitPrice => visitPrices[level-1];
-    public int[] upgradePrices = { 25000, 50000, 200000 };
-    private int[] visitPrices = { 5000, 20000, 50000, 100000 };
+            return visitPrices[level - 1];
+        }
+    }
 }

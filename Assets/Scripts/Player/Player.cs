@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
         }
     }
     public List<BoardField> ownedProperties { get; private set; }
+    public List<Card> ownedCards { get; private set; } = new List<Card>();
     public bool isActive { get; set; } = true;
     public int currentPosition { get; set; } = 0;
 
@@ -56,6 +57,19 @@ public class Player : MonoBehaviour
     public void OnMove()
     {
         ps.Play();
+    }
+
+    public int GetMpksNumber()
+    {
+        int i = 0;
+        foreach(BoardField field in ownedProperties)
+        {
+            if(field.property.ftype == BoardField.FieldsType.MPK)
+            {
+                i++;
+            }
+        }
+        return i;
     }
 
     string FormatMoney(int amount)
