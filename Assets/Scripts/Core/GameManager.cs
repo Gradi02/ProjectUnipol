@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerOverlayCard[] uiPlayersCards;
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Shader shader;
     [SerializeField] private List<Card> cards = new List<Card>();
+    [SerializeField] private Material[] playersMaterials;
 
     [Header("UI")]
     public Image cardSprite;
@@ -56,9 +56,7 @@ public class GameManager : MonoBehaviour
             {
                 GameObject newPlayer = Instantiate(playerPrefab);
                 Player newPlayerScript = newPlayer.GetComponent<Player>();
-                Material mat = new Material(shader);
-                mat.color = p[i].bgc;
-                newPlayer.GetComponent<MeshRenderer>().material = mat;
+                newPlayer.GetComponent<MeshRenderer>().material = playersMaterials[i];
 
                 uiPlayersCards[idx].Setup(p[i]);
                 newPlayerScript.SetUp(uiPlayersCards[idx], p[i].usernameText);

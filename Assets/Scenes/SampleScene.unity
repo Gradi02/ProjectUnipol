@@ -872,9 +872,13 @@ MonoBehaviour:
   - {fileID: 148263164}
   - {fileID: 1750506374}
   playerPrefab: {fileID: 5228333244535578459, guid: 3fce130ea09a5e84fbba150388e055e4, type: 3}
-  shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   cards:
   - {fileID: 1542962310}
+  playersMaterials:
+  - {fileID: 2100000, guid: 71f32bc5f8d9c7b4698c4bf7c3c92653, type: 2}
+  - {fileID: 2100000, guid: f279f718ea6d75347bb48568fd1f74af, type: 2}
+  - {fileID: 2100000, guid: 0e2e770c8150e8d458dd76565c7ac72e, type: 2}
+  - {fileID: 2100000, guid: 5d1b367cb06e42341949dab735589667, type: 2}
   cardSprite: {fileID: 2132851459}
   transitionCanva: {fileID: 2011887028}
   playerTurnCanva: {fileID: 1505325209}
@@ -1106,6 +1110,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2067504158}
     m_Modifications:
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.a
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 38905571955068066, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
       propertyPath: m_Name
       value: PlayerOverlayCard (2)
@@ -1675,7 +1695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5747863834158195969, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: m_Pivot.x
@@ -4466,7 +4486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.price
@@ -4475,6 +4495,10 @@ PrefabInstance:
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.canBuy
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.fieldname
+      value: Los
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -5059,7 +5083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.price
@@ -5071,7 +5095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
-      value: Egzamin
+      value: Los
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -5893,7 +5917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.fieldname
@@ -7922,6 +7946,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2067504158}
     m_Modifications:
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.a
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 38905571955068066, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
       propertyPath: m_Name
       value: PlayerOverlayCard (1)
@@ -9769,6 +9809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42720658f12df6149821bdb780165bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readyToDestroy: 0
   cardImage: {fileID: -2081028789, guid: 7e14a16dc84369c4ebb66c41a54c760b, type: 3}
   cardName: Stypendium
   desc: "Gracz po wykonaniu ruchu przez nast\u0119pne 3 tury otrzyma stypendium w
@@ -10929,7 +10970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: property.ftype
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5747863834158195969, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
       propertyPath: m_Pivot.x
@@ -11513,6 +11554,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2067504158}
     m_Modifications:
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.a
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1850749026751773099, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
+      propertyPath: disabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 38905571955068066, guid: e13aaaa60fb40b049b554954e2c9d5ee, type: 3}
       propertyPath: m_Name
       value: PlayerOverlayCard (3)
