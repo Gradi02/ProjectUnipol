@@ -19,13 +19,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerOverlayCard[] uiPlayersCards;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Shader shader;
+    [SerializeField] private List<Card> cards = new List<Card>();
+
+    [Header("UI")]
+    public Image cardSprite;
     public GameObject transitionCanva, playerTurnCanva, cardCanva, buyCanva, upgradeCanva;
-    public TextMeshProUGUI transitionText, buyText, upgradeText;
+    public TextMeshProUGUI transitionText, buyText, upgradeText, cardDesc, cardTitle;
     public Button rollButton, surrenderButton;
     public Button[] upgrades;
     public Color defaultColor, selectedColor;
     public TextMeshProUGUI[] upgradesText;
-
 
     public static GameManager instance { get; private set; }
     public bool isGameStarted { get; private set; } = false;
@@ -33,7 +36,6 @@ public class GameManager : MonoBehaviour
     public int currentPlayerIndex { get; private set; } = 0;
     public bool dublet { get; set; } = false;
 
-    public List<Card> cards = new List<Card>();
 
     public Board board;
 
@@ -101,6 +103,12 @@ public class GameManager : MonoBehaviour
     {
         events.Enqueue(new ChangeStateEvent(s));
     }
+
+    public Card GetRandomCard()
+    {
+        return cards[Random.Range(0, cards.Count)];
+    }
+
     public void NextPlayer()
     {
         currentPlayerIndex++;
