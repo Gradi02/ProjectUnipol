@@ -49,11 +49,24 @@ public class Board : MonoBehaviour
 
         if (pl.ownedCards.Count > 0)
         {
-            foreach (Card card in pl.ownedCards)
+            for(int i=0; i<pl.ownedCards.Count; i++)
             {
-                card.RunCardEventOnPlayerLand();
+                if (pl.ownedCards[i] != null)
+                {
+                    pl.ownedCards[i].RunCardEventOnPlayerLand();
+                }
             }
+
+            pl.ownedCards.RemoveAll(card =>
+            {
+                if (card.readyToDestroy)
+                {
+                    return true;
+                }
+                return false;
+            });
         }
+
 
         GameManager.instance.isStateEnded = true;
         fields[pl.currentPosition].OnPlayerLand(pl);

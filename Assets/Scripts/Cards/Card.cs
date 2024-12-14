@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Card : MonoBehaviour
 {
+    public bool readyToDestroy = false;
     public Sprite cardImage;
     public string cardName;
     public string desc;
