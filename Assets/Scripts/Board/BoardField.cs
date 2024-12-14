@@ -315,7 +315,10 @@ public class BoardField : MonoBehaviour
         Normal,
         Card,
         MPK,
-        Special
+        Start,
+        Warun,
+        Fabryczna,
+        Juwenalia
     }
 }
 
