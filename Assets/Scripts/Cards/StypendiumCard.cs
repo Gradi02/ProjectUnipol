@@ -26,7 +26,7 @@ public class StypendiumCard : Card
 
         if(stypendiumIdx <= 0)
         {
-            player.ownedCards.Remove(this);
+            readyToDestroy = true;
         }
     }
 
