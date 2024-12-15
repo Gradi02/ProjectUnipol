@@ -27,7 +27,16 @@ public class awaitingBuyDecisionState : State
         {
             currentPlayer.money -= currentField.property.price;
             currentPlayer.AddFieldToList(currentField);
-            currentField.OnBuy(currentPlayer);
+
+            IOwnableProperty pr = currentField.GetComponent<IOwnableProperty>();
+            if (pr != null)
+            {
+                pr.OnBuy(currentPlayer);
+            }
+            else
+            {
+                Debug.LogWarning($"{currentField} nie implementuje IOwnableProperty!");
+            }
 
             gameManager.isStateEnded = true;
         }

@@ -68,7 +68,15 @@ public class awaitingUpgrDecisionState : State
             }
             else
             {
-                currentField.OnUpgrade(upgradeSelectionIndex);
+                IOwnableProperty pr = currentField.GetComponent<IOwnableProperty>();
+                if (pr != null)
+                {
+                    pr.OnUpgrade(upgradeSelectionIndex);
+                }
+                else
+                {
+                    Debug.LogWarning($"{currentField} nie implementuje IOwnableProperty!");
+                }
             }
 
             gameManager.isStateEnded = true;
