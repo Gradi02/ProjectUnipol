@@ -6,20 +6,31 @@ public class awaitingPayPlayerState : State
 
     public override void Execute()
     {
-        StartCoroutine(IERollAnimation());
+        StartCoroutine(IEPayAnimation());
     }
 
 
 
 
-    private IEnumerator IERollAnimation()
+    private IEnumerator IEPayAnimation()
     {
         Player owner = currentField.property.owner;
 
-        string t = $"Player {currentPlayer.playerName} Paid ${currentField.property.currentVisitPrice} To {currentField.property.owner.playerName}!";
+        int currentVisitPrice = 0;
+        IOwnableProperty pr = currentField.GetComponent<IOwnableProperty>();
+        if (pr != null)
+        {
+            currentVisitPrice = pr.GetCurrentVisitPrice();
+        }
+        else
+        {
+            Debug.LogWarning($"{currentField} nie implementuje IOwnableProperty!");
+        }
 
-        currentPlayer.money -= currentField.property.currentVisitPrice;
-        owner.money += currentField.property.currentVisitPrice;
+        string t = $"Player {currentPlayer.playerName} Paid ${currentVisitPrice} To {currentField.property.owner.playerName}!";
+
+        currentPlayer.money -= currentVisitPrice;
+        owner.money += currentVisitPrice;
 
         gameManager.transitionText.text = t;
         gameManager.transitionCanva.SetActive(true);

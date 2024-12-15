@@ -40,9 +40,17 @@ public class Player : MonoBehaviour
 
         if (ownedProperties.Count > 0)
         {
-            foreach (BoardField field in ownedProperties)
+            foreach (BoardField f in ownedProperties)
             {
-                field.ResetField();
+                IOwnableProperty pr = f.GetComponent<IOwnableProperty>();
+                if (pr != null)
+                {
+                    pr.ResetField();
+                }
+                else
+                {
+                    Debug.LogWarning($"{f} nie implementuje IOwnableProperty!");
+                }
             }
         }
 
@@ -63,8 +71,8 @@ public class Player : MonoBehaviour
     {
         int i = 0;
         foreach(BoardField field in ownedProperties)
-        {
-            if(field.property.ftype == BoardField.FieldsType.MPK)
+        {     
+            if (field is MPKField)
             {
                 i++;
             }

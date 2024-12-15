@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 7904310266035967116}
   - component: {fileID: 3514645271074188210}
   - component: {fileID: 5634634186130946254}
-  - component: {fileID: 5705543446674655473}
+  - component: {fileID: 4625445149541667105}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -323,7 +323,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5705543446674655473
+--- !u!114 &4625445149541667105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1355195861150570636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f4bfc12c50b74a43a8aff19611387d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fb4e3fa4e0bec345a515642773d39ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   visitPrice: {fileID: 5073734872768135066}
@@ -350,14 +350,9 @@ MonoBehaviour:
   - {fileID: 5987355002673800894, guid: 9d035f5192dbb0c47bf7db8c99648920, type: 3}
   - {fileID: 3922513039141823665, guid: d3d4720049c6d3b418c7e65452c3ce81, type: 3}
   property:
-    ftype: 0
     fieldname: 
-    canBuy: 1
-    price: 10000
     owner: {fileID: 0}
     level: 0
-    upgradePrice: 000000001027000050c30000a0860100400d0300
-    visitPrices: 0000000010270000204e000050c30000a0860100
 --- !u!1 &1795151633234959717
 GameObject:
   m_ObjectHideFlags: 0
