@@ -1,12 +1,9 @@
-using System.Collections;
 using UnityEngine;
 
-public class StypendiumCard : Card
+public class GoStartCard : Card, IDirectEvent
 {
     BoardField boardField;
     Player player;
-    int stypendiumIdx = 3;
-    int stypendiumSize = 10000;
 
     public override void RunCardSetup(BoardField currentField, Player currentPlayer)
     {
@@ -16,17 +13,11 @@ public class StypendiumCard : Card
     }
 
     public override void RunCardEventOnPlayerLand()
+    {}
+
+    public void RunCardDirectEvent()
     {
-        if(stypendiumIdx > 0)
-        {
-            player.money += stypendiumSize;
-        }
-
-        stypendiumIdx--;
-
-        if(stypendiumIdx <= 0)
-        {
-            readyToDestroy = true;
-        }
+        int num = gameManager.board.fields.Length - player.currentPosition;
+        gameManager.board.MovePlayer(player, num);
     }
 }

@@ -11,17 +11,21 @@ public class awaitCardEvent : State
     private IEnumerator IECardAnim()
     {
         Card card = gameManager.GetRandomCard();
+        card.RunCardSetup(currentField, currentPlayer);
 
         gameManager.cardSprite.sprite = card.cardImage;
         gameManager.cardTitle.text = card.cardName;
         gameManager.cardDesc.text = card.desc;
         gameManager.cardCanva.SetActive(true);
         yield return new WaitForSeconds(6f);
-
-        card.RunCardSetup(currentField, currentPlayer);
         gameManager.cardCanva.SetActive(false);
 
-        gameManager.isStateEnded = true;
+        IDirectEvent de = card.GetComponent<IDirectEvent>();
+        if (de == null)
+            gameManager.isStateEnded = true;
+        else
+            de.RunCardDirectEvent();
+
         yield return null;
     }
 }
