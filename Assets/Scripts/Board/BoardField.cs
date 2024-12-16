@@ -8,6 +8,7 @@ public abstract class BoardField : MonoBehaviour
     protected GameManager gameManager => GameManager.instance;
     [SerializeField] protected TextMeshProUGUI fname;
     [SerializeField] protected Image ramka;
+    private int startMoneyBonus = 100000;
     public PropertyField property;
 
     private readonly Vector3[][] offsets =
@@ -54,6 +55,11 @@ public abstract class BoardField : MonoBehaviour
         for(int i=0; i<phere.Count; i++)
         {
             phere[i].gameObject.transform.position = transform.position + offsets[phere.Count - 1][i];
+        }
+
+        if(this is StartField)
+        {
+            pl.money += startMoneyBonus;
         }
     }
 
