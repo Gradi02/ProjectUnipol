@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public List<Card> ownedCards { get; private set; } = new List<Card>();
     public bool isActive { get; set; } = true;
     public int currentPosition { get; set; } = 0;
+    public int stopTurns { get; set; } = 0;
 
     [SerializeField] private ParticleSystem ps;
 

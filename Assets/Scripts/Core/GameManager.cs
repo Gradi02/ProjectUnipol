@@ -109,17 +109,32 @@ public class GameManager : MonoBehaviour
 
     public void NextPlayer()
     {
-        currentPlayerIndex++;
-        if (currentPlayerIndex >= players.Count)
-            currentPlayerIndex = 0;
-
-        while (!players[currentPlayerIndex].isActive)
+        do
         {
             currentPlayerIndex++;
             if (currentPlayerIndex >= players.Count)
                 currentPlayerIndex = 0;
-        }
+
+            if(players[currentPlayerIndex].stopTurns > 0)
+            {
+                players[currentPlayerIndex].stopTurns--;
+
+                if (players[currentPlayerIndex].stopTurns > 0)
+                {
+                    int trn = players[currentPlayerIndex].stopTurns;
+                    string strend = (trn == 1) ? $"{trn} ture!" : $"{trn} tury!";
+
+                    AddEvent($"Gracz {players[currentPlayerIndex].playerName} jest jeszcze uziemiony przez " + strend);
+                }
+                else
+                {
+                    AddEvent($"Gracz {players[currentPlayerIndex].playerName} zdo³a³ ju¿ op³aciæ warunek!");
+                }
+            }
+        } 
+        while (!players[currentPlayerIndex].isActive || players[currentPlayerIndex].stopTurns > 0);
         
+
         string t = $"{players[currentPlayerIndex].playerName}'s Turn!";
         AddEvent(t);
 
@@ -147,7 +162,7 @@ public class GameManager : MonoBehaviour
     {
         transitionText.text = title;
         transitionCanva.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         transitionCanva.SetActive(false);
 
         isEventEnded = true;
