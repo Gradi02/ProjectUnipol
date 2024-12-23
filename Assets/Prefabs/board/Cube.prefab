@@ -168,10 +168,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.25
-  m_fontSizeBase: 0.1
+  m_fontSize: 0.2
+  m_fontSizeBase: 0.2
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 0.1
   m_fontSizeMax: 1
   m_fontStyle: 17
@@ -335,10 +335,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb4e3fa4e0bec345a515642773d39ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitPrice: {fileID: 5073734872768135066}
   fname: {fileID: 1435921344213686658}
-  bg: {fileID: 4837554489422586927}
   ramka: {fileID: 8665844287975213331}
+  property:
+    fieldname: 
+    owner: {fileID: 0}
+    level: 0
+  visitPrice: {fileID: 5073734872768135066}
+  bg: {fileID: 4837554489422586927}
   buildingsTransforms:
   - {fileID: 2795374951457074378}
   - {fileID: 5851765140774921064}
@@ -349,10 +353,6 @@ MonoBehaviour:
   - {fileID: 774718829154050846, guid: 8d89af82ece3306439d3a6d3200c61ca, type: 3}
   - {fileID: 5987355002673800894, guid: 9d035f5192dbb0c47bf7db8c99648920, type: 3}
   - {fileID: 3922513039141823665, guid: d3d4720049c6d3b418c7e65452c3ce81, type: 3}
-  property:
-    fieldname: 
-    owner: {fileID: 0}
-    level: 0
 --- !u!1 &1795151633234959717
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,9 +687,9 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 0.15
-  m_fontSizeBase: 0.1
+  m_fontSizeBase: 0.15
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 0.12
   m_fontSizeMax: 0.2
   m_fontStyle: 1
@@ -702,7 +702,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

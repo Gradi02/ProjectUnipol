@@ -81,11 +81,7 @@ public abstract class BoardField : MonoBehaviour
         }
     }
 
-    public abstract void OnPlayerLand(Player pl);
-
-
-
-   
+    public abstract void OnPlayerLand(Player pl); 
 }
 
 [System.Serializable]
