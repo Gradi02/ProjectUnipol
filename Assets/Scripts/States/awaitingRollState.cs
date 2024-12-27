@@ -30,6 +30,9 @@ public class awaitingRollState : State
             gameManager.AddEvent($"{k1} : {k2}");
         }
 
+        //animacja kostki
+
+        //yield return
         gameManager.board.MovePlayer(gameManager.players[gameManager.currentPlayerIndex], num);
 
         yield return null;
