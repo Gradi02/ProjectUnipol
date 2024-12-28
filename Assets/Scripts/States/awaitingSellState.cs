@@ -109,13 +109,16 @@ public class awaitingSellState : State
 
         yield return new WaitForSeconds(0.5f);
         movedFields.Clear();
-        isRayActive = true;
-        plane.SetActive(true);
+        isRayActive = false;
+        plane.SetActive(false);
         gameManager.sellCanva.SetActive(false);
 
         if(surrender)
         {
-            currentField.property.owner.money += requiredValue;
+            if (currentField.GetComponent<IOwnableProperty>() != null)
+            {
+                currentField.property.owner.money += requiredValue;
+            }
         }
         else
         {
@@ -124,8 +127,17 @@ public class awaitingSellState : State
                 field.GetComponent<IOwnableProperty>().ResetField();
             }
 
+            foreach (BoardField field in currentPlayer.ownedProperties)
+            {
+                field.GetComponent<IOwnableProperty>().FormatString();
+            }
+
             currentPlayer.money += selectedValue - requiredValue;
-            currentField.property.owner.money += requiredValue;
+
+            if(currentField.GetComponent<IOwnableProperty>() != null)
+            {
+                currentField.property.owner.money += requiredValue;
+            }
         }
 
         gameManager.isStateEnded = true;

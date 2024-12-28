@@ -82,6 +82,15 @@ public abstract class BoardField : MonoBehaviour
     }
 
     public abstract void OnPlayerLand(Player pl); 
+
+
+    public void StartJuwenalia()
+    {
+        if(this is not NormalField)
+        {
+
+        }
+    }
 }
 
 [System.Serializable]
