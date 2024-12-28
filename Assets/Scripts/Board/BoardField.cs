@@ -93,6 +93,7 @@ public class PropertyField
     [HideInInspector] public int price => Board.pricingsInstance.prices[fieldname].price;
     [HideInInspector] public int[] upgradePrices => Board.pricingsInstance.prices[fieldname].upgradePreices;
     [HideInInspector] public int[] visitPrices => Board.pricingsInstance.prices[fieldname].visitPrice;
+    [HideInInspector] public int currentValue = 0;
 }
 
 

@@ -71,7 +71,7 @@ public class NormalField : BoardField, IOwnableProperty
             {
                 string t = $"Player {pl.playerName} Have Not Enought Money To Pay To Player {property.owner.playerName}!";
                 gameManager.AddEvent(t);
-                gameManager.AddEvent(gameManager.endTurnS);
+                gameManager.AddEvent(gameManager.awaitingSellState);
                 return;
             }
         }
@@ -93,6 +93,7 @@ public class NormalField : BoardField, IOwnableProperty
     }
     public void OnBuy(Player pl)
     {
+        property.currentValue += property.price/2;
         property.owner = pl;
         property.level = 1;
 
@@ -111,6 +112,7 @@ public class NormalField : BoardField, IOwnableProperty
             prc += property.upgradePrices[i - 1];
         }
         property.owner.money -= prc;
+        property.currentValue += prc / 2;
 
         UpdateBuildingCount();
         FormatString();
