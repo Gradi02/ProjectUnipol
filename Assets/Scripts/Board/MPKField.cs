@@ -64,8 +64,8 @@ public class MPKField : BoardField, IOwnableProperty
     {
         property.owner = null;
         property.level = 0;
-        visitPrice.text = "";
         UpdateBuildingCount();
+        visitPrice.text = "";
     }
 
     public void OnBuy(Player pl)
