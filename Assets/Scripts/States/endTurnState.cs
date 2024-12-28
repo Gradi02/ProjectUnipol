@@ -17,6 +17,7 @@ public class endTurnState : State
         gameManager.cardCanva.SetActive(false);
         gameManager.buyCanva.SetActive(false);
         gameManager.upgradeCanva.SetActive(false);
+        gameManager.sellCanva.SetActive(false);
 
         if (gameManager.dublet)
         {

@@ -23,9 +23,9 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     public Image cardSprite;
-    public GameObject transitionCanva, playerTurnCanva, cardCanva, buyCanva, upgradeCanva;
-    public TextMeshProUGUI transitionText, buyText, upgradeText, cardDesc, cardTitle;
-    public Button rollButton, surrenderButton;
+    public GameObject transitionCanva, playerTurnCanva, cardCanva, buyCanva, upgradeCanva, sellCanva;
+    public TextMeshProUGUI transitionText, buyText, upgradeText, cardDesc, cardTitle, sellValue;
+    public Button rollButton, surrenderButton, confirmSellButton;
     public Button[] upgrades;
     public Color defaultColor, selectedColor;
     public TextMeshProUGUI[] upgradesText;
