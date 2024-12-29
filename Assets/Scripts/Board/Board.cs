@@ -36,15 +36,21 @@ public class Board : MonoBehaviour
 
     private IEnumerator IEMovePlayer(Player pl, int num)
     {
+        float timeTick = 0.2f;
         for(int i=0; i<num; i++)
         {
             fields[pl.currentPosition].OnPlayerVisitExit(pl);
             pl.currentPosition++;
+
             if(pl.currentPosition >= fields.Length)
                 pl.currentPosition = 0;
-            fields[pl.currentPosition].OnPlayerVisitEnter(pl);
-            pl.OnMove();
-            yield return new WaitForSeconds(0.2f);
+
+            fields[pl.currentPosition].OnPlayerVisitEnter(pl, timeTick);
+
+
+            //Debug.Log(fields[pl.currentPosition].transform.position);
+
+            yield return new WaitForSeconds(timeTick);
         }
 
         if (pl.ownedCards.Count > 0)
