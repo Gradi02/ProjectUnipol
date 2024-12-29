@@ -25,8 +25,6 @@ public class Player : MonoBehaviour
     public int currentPosition { get; set; } = 0;
     public int stopTurns { get; set; } = 0;
 
-    [SerializeField] private ParticleSystem ps;
-
     public void SetUp(PlayerOverlayCard c, string usn)
     {
         overlayCard = c;
@@ -63,10 +61,6 @@ public class Player : MonoBehaviour
         ownedProperties.Add(f);
     }
 
-    public void OnMove()
-    {
-        ps.Play();
-    }
 
     public int GetMpksNumber()
     {

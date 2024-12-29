@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class BoardField : MonoBehaviour
 {
@@ -40,7 +42,7 @@ public abstract class BoardField : MonoBehaviour
 
 
 
-    public void OnPlayerVisitEnter(Player pl)
+    public void OnPlayerVisitEnter(Player pl, float time)
     {
         List<Player> phere = new List<Player>();
 
@@ -54,14 +56,34 @@ public abstract class BoardField : MonoBehaviour
 
         for(int i=0; i<phere.Count; i++)
         {
-            phere[i].gameObject.transform.position = transform.position + offsets[phere.Count - 1][i];
+            //phere[i].gameObject.transform.position = transform.position + offsets[phere.Count - 1][i];
+
+
+            //animacja move graczy 
+            Vector3 end = transform.position + offsets[phere.Count - 1][i];
+            GameObject playerTemp = phere[i].gameObject;
+
+
+            LeanTween.moveY(gameObject, gameObject.transform.position.y - 0.06f, time/2).setDelay(time/2).setEase(LeanTweenType.easeInOutSine);
+            LeanTween.moveY(gameObject, gameObject.transform.position.y, time/2).setDelay(time).setEase(LeanTweenType.easeInOutSine);
+
+            LeanTween.scale(playerTemp, new Vector3(0.25f, 0.25f, 0.25f), time/2).setEase(LeanTweenType.easeInOutSine);
+            LeanTween.scale(playerTemp, new Vector3(0.2f, 0.2f, 0.2f), time / 2).setDelay(time / 2).setEase(LeanTweenType.easeInOutSine);
+
+            LeanTween.moveX(playerTemp, end.x, time).setEase(LeanTweenType.easeInOutSine);
+            LeanTween.moveZ(playerTemp, end.z, time).setEase(LeanTweenType.easeInOutSine);
+            LeanTween.moveY(playerTemp, end.y + 0.3f, time / 2).setEase(LeanTweenType.easeInOutSine);
+            LeanTween.moveY(playerTemp, end.y, time / 2).setDelay(time / 2).setEase(LeanTweenType.easeInOutSine);
+
         }
 
-        if(this is StartField)
+        if (this is StartField)
         {
             pl.money += startMoneyBonus;
         }
     }
+
+
 
     public void OnPlayerVisitExit(Player pl)
     {

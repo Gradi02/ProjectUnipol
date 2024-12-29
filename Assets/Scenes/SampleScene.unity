@@ -2070,38 +2070,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 279836038}
     m_Modifications:
-    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: ramka
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: visitPrice
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: ramka
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: visitPrice
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.ftype
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.price
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.canBuy
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.fieldname
-      value: Los
-      objectReference: {fileID: 0}
     - target: {fileID: 2032206945256117290, guid: f5464e4c2c71c7b468c0b033373d1b39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -2150,6 +2118,38 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: bc223e74dd496ab4fae90d778c62515f, type: 2}
+    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: ramka
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: visitPrice
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: ramka
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: visitPrice
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.ftype
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.price
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.canBuy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.fieldname
+      value: Los
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
     m_RemovedGameObjects:
@@ -4423,38 +4423,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 457146353}
     m_Modifications:
-    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: ramka
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: visitPrice
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: ramka
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: visitPrice
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.ftype
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.price
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.canBuy
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.fieldname
-      value: Los
-      objectReference: {fileID: 0}
     - target: {fileID: 2032206945256117290, guid: f5464e4c2c71c7b468c0b033373d1b39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -4503,6 +4471,38 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: bc223e74dd496ab4fae90d778c62515f, type: 2}
+    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: ramka
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: visitPrice
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: ramka
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: visitPrice
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.ftype
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.price
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.canBuy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.fieldname
+      value: Los
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
     m_RemovedGameObjects:
@@ -5165,38 +5165,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1549596776}
     m_Modifications:
-    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: ramka
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: visitPrice
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: ramka
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: visitPrice
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.ftype
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.price
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.canBuy
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
-      propertyPath: property.fieldname
-      value: Los
-      objectReference: {fileID: 0}
     - target: {fileID: 2032206945256117290, guid: f5464e4c2c71c7b468c0b033373d1b39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -5245,6 +5213,38 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: bc223e74dd496ab4fae90d778c62515f, type: 2}
+    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: ramka
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: visitPrice
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: ramka
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: visitPrice
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.ftype
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.price
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.canBuy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705543446674655473, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
+      propertyPath: property.fieldname
+      value: Los
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4625445149541667105, guid: 2af2865226aa93e449d217e2dd01c366, type: 3}
     m_RemovedGameObjects:
