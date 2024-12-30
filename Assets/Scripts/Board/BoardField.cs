@@ -2,8 +2,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using static UnityEngine.GraphicsBuffer;
 
 public abstract class BoardField : MonoBehaviour
 {
