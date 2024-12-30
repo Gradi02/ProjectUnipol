@@ -7773,10 +7773,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd206c172b17c24999081ae91b47e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plane: {fileID: 0}
+  plane: {fileID: 573287414}
   mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!1 &1353794712
 GameObject:
   m_ObjectHideFlags: 0
