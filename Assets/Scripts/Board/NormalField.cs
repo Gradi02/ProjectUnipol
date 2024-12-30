@@ -7,16 +7,17 @@ public class NormalField : BoardField, IOwnableProperty
 {
     public TextMeshProUGUI visitPrice;
     public Image bg;
-    public Transform[] buildingsTransforms;
+    public Transform buildingsTransform;
     public GameObject[] buildingsPrefs;
     private const int maxLevel = 5;
-    private GameObject[] buildingsReferences = new GameObject[4];
+    private GameObject buildingsReference;
 
 
     private void Start()
     {
         fname.text = property.fieldname;
         visitPrice.text = "";
+        selectedBox.SetActive(false);
     }
 
 
@@ -71,8 +72,24 @@ public class NormalField : BoardField, IOwnableProperty
             {
                 string t = $"Player {pl.playerName} Have Not Enought Money To Pay To Player {property.owner.playerName}!";
                 gameManager.AddEvent(t);
-                gameManager.AddEvent(gameManager.awaitingSellState);
-                return;
+
+                int maxMoney = pl.money;
+                foreach(BoardField bf in pl.ownedProperties)
+                {
+                    maxMoney += bf.property.currentValue;
+                }
+
+                if(maxMoney >= GetCurrentVisitPrice())
+                {
+                    gameManager.AddEvent(gameManager.awaitingSellState);
+                    return;
+                }
+                else
+                {
+                    pl.Surrender();
+                    gameManager.AddEvent(gameManager.endTurnS);
+                    return;
+                }
             }
         }
     }
@@ -121,42 +138,21 @@ public class NormalField : BoardField, IOwnableProperty
 
     public void UpdateBuildingCount()
     {
-        if (property.level == maxLevel - 1)
+        if (buildingsReference != null)
         {
-            for (int i = 0; i < maxLevel - 2; i++)
-            {
-                if (buildingsReferences[i] != null)
-                {
-                    Destroy(buildingsReferences[i]);
-                    buildingsReferences[i] = null;
-                }
-            }
-
-            buildingsReferences[maxLevel - 2] = Instantiate(buildingsPrefs[maxLevel - 2], buildingsTransforms[maxLevel - 2].position, transform.rotation);
-            buildingsReferences[maxLevel - 2].GetComponent<MeshRenderer>().material = property.owner.GetComponent<MeshRenderer>().material;
-            buildingsReferences[maxLevel - 2].transform.SetParent(transform, true);
-
-            return;
+            Destroy(buildingsReference);
+            buildingsReference = null;
         }
 
-        for (int i = 0; i < maxLevel - 1; i++)
+        if (property.level - 1 >= 0)
         {
-            if (property.level > i)
+            buildingsReference = Instantiate(buildingsPrefs[property.level - 1], buildingsTransform.position, transform.rotation);
+            buildingsReference.transform.SetParent(transform, true);
+
+            RoofMarker[] roofs = buildingsReference.GetComponentsInChildren<RoofMarker>();
+            foreach (RoofMarker roofMarker in roofs)
             {
-                if (buildingsReferences[i] == null)
-                {
-                    buildingsReferences[i] = Instantiate(buildingsPrefs[i], buildingsTransforms[i].position, transform.rotation);
-                    buildingsReferences[i].GetComponent<MeshRenderer>().material = property.owner.GetComponent<MeshRenderer>().material;
-                    buildingsReferences[i].transform.SetParent(transform, true);
-                }
-            }
-            else
-            {
-                if (buildingsReferences[i] != null)
-                {
-                    Destroy(buildingsReferences[i]);
-                    buildingsReferences[i] = null;
-                }
+                roofMarker.GetComponent<MeshRenderer>().material = property.owner.GetComponent<MeshRenderer>().material;
             }
         }
     }

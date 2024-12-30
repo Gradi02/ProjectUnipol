@@ -17,6 +17,7 @@ public class MPKField : BoardField, IOwnableProperty
     {
         fname.text = property.fieldname;
         visitPrice.text = "";
+        selectedBox.SetActive(false);
     }
 
     public override void OnPlayerLand(Player pl)
@@ -36,6 +37,11 @@ public class MPKField : BoardField, IOwnableProperty
                 return;
             }
         }
+        else if (property.owner == pl)
+        {
+            gameManager.AddEvent(gameManager.endTurnS);
+            return;
+        }
         else
         {
             if (pl.money >= GetCurrentVisitPrice())
@@ -47,8 +53,24 @@ public class MPKField : BoardField, IOwnableProperty
             {
                 string t = $"Player {pl.playerName} Have Not Enought Money To Pay To Player {property.owner.playerName}!";
                 gameManager.AddEvent(t);
-                gameManager.AddEvent(gameManager.awaitingSellState);
-                return;
+
+                int maxMoney = pl.money;
+                foreach (BoardField bf in pl.ownedProperties)
+                {
+                    maxMoney += bf.property.currentValue;
+                }
+
+                if (maxMoney >= GetCurrentVisitPrice())
+                {
+                    gameManager.AddEvent(gameManager.awaitingSellState);
+                    return;
+                }
+                else
+                {
+                    pl.Surrender();
+                    gameManager.AddEvent(gameManager.endTurnS);
+                    return;
+                }
             }
         }
     }

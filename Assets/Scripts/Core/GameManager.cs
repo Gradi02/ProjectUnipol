@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI[] upgradesText;
 
     public static GameManager instance { get; private set; }
-    public bool isGameStarted { get; private set; } = false;
+    public bool isGameStarted { get; set; } = false;
     public List<Player> players { get; private set; } = new List<Player>();
     public int currentPlayerIndex { get; private set; } = 0;
     public bool dublet { get; set; } = false;
@@ -78,6 +78,22 @@ public class GameManager : MonoBehaviour
         AddEvent(endTurnS);
     }
 
+    public void CheckForWin()
+    {
+        int activePlayers = 0;
+        foreach(Player p in players)
+        {
+            if (p.isActive)
+                activePlayers++;
+        }
+
+        if(activePlayers == 1)
+        {
+            //WIN
+            AddEvent(endGameS, true);
+        }
+    }
+
     private void Update()
     {
         if(isEventEnded && events.Count > 0)
@@ -97,8 +113,15 @@ public class GameManager : MonoBehaviour
         events.Enqueue(new ShowInfoEvent(t));
     }
 
-    public void AddEvent(State s)
+    public void AddEvent(State s, bool force = false)
     {
+        if(force)
+        {
+            isStateEnded = false;
+            events.Clear();
+            isStateEnded = true;
+        }
+
         events.Enqueue(new ChangeStateEvent(s));
     }
 
