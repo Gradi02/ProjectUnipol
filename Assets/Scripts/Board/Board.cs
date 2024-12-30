@@ -279,7 +279,7 @@ public class CardsPricings
         },
 
         {
-            "WfiIS",
+            "WFiIS",
             new CardsProperties
             {
                 price = 45000,

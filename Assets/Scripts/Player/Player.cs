@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
 
     public void Surrender()
     {
+        string t = $"Gracz {playerName} zosta³ wyeliminowany!";
+        GameManager.instance.AddEvent(t);
+
         isActive = false;
         money = 0;
 
@@ -54,6 +57,8 @@ public class Player : MonoBehaviour
         }
 
         overlayCard.SetCashText("FAILED");
+
+        GameManager.instance.CheckForWin();
     }
 
     public void AddFieldToList(BoardField f)

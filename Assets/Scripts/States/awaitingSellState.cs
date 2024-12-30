@@ -70,25 +70,29 @@ public class awaitingSellState : State
             {
                 BoardField fl;
                 hit.collider.TryGetComponent<BoardField>(out fl);
-                IOwnableProperty own;
-                fl.TryGetComponent<IOwnableProperty>(out own);
 
-                if (fl != null && own != null)
+                if (fl != null)
                 {
-                    if(selectedFields.Contains(fl))
-                    {
-                        selectedFields.Remove(fl);
-                        selectedValue -= fl.property.currentValue;
-                        LeanTween.moveLocalX(fl.gameObject, 1f, 0.1f).setEase(LeanTweenType.easeInOutQuad);
-                    }
-                    else
-                    {
-                        selectedFields.Add(fl);
-                        selectedValue += fl.property.currentValue;
-                        LeanTween.moveLocalX(fl.gameObject, 0.9f, 0.1f).setEase(LeanTweenType.easeInOutQuad);
-                    }
+                    IOwnableProperty own;
+                    fl.TryGetComponent<IOwnableProperty>(out own);
 
-                    gameManager.sellValue.text = $"Otrzymasz\n${selectedValue}\nza wybrane pola!";
+                    if (fl != null && own != null)
+                    {
+                        if (selectedFields.Contains(fl))
+                        {
+                            selectedFields.Remove(fl);
+                            selectedValue -= fl.property.currentValue;
+                            fl.selectedBox.SetActive(false);
+                        }
+                        else
+                        {
+                            selectedFields.Add(fl);
+                            selectedValue += fl.property.currentValue;
+                            fl.selectedBox.SetActive(true);
+                        }
+
+                        gameManager.sellValue.text = $"Otrzymasz\n${selectedValue}\nza wybrane pola!";
+                    }
                 }
             }
         }
@@ -125,6 +129,7 @@ public class awaitingSellState : State
             foreach (BoardField field in selectedFields)
             {
                 field.GetComponent<IOwnableProperty>().ResetField();
+                field.selectedBox.SetActive(false);
             }
 
             foreach (BoardField field in currentPlayer.ownedProperties)

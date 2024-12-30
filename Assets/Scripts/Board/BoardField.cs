@@ -8,6 +8,7 @@ public abstract class BoardField : MonoBehaviour
     protected GameManager gameManager => GameManager.instance;
     [SerializeField] protected TextMeshProUGUI fname;
     [SerializeField] protected Image ramka;
+    public GameObject selectedBox;
     private int startMoneyBonus = 100000;
     public PropertyField property;
 
@@ -104,9 +105,10 @@ public abstract class BoardField : MonoBehaviour
     public abstract void OnPlayerLand(Player pl); 
 
 
+
     public void StartJuwenalia()
     {
-        if(this is not NormalField)
+        if(this is NormalField)
         {
 
         }
