@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
     public Color defaultColor, selectedColor;
     public TextMeshProUGUI[] upgradesText;
 
+    [Header("juwe")]
+    public NormalField juwenaliaField;
+    public float[] juwenaliaPricing = {1.25f, 1.3f, 1.4f, 1.5f, 1.75f, 2.0f, 2.25f, 2.5f};
+    public int juwenaliaPricePointer { get; set; } = 0;
+
+
     public static GameManager instance { get; private set; }
     public bool isGameStarted { get; set; } = false;
     public List<Player> players { get; private set; } = new List<Player>();
