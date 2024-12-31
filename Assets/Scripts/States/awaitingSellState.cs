@@ -48,9 +48,8 @@ public class awaitingSellState : State
 
     private void Update()
     {
-        gameManager.confirmSellButton.interactable = selectedValue >= requiredValue;
-
         if (!isRayActive) return;
+        gameManager.confirmSellButton.interactable = (selectedValue + currentPlayer.money) >= requiredValue;
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {

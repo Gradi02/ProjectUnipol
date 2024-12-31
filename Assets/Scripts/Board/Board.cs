@@ -104,7 +104,7 @@ public class CardsPricings
             {
                 price = 5000,
                 upgradePreices = new int[] { 25000, 60000, 150000 },
-                visitPrice = new int[] { 15000, 45000, 70000, 180000 }
+                visitPrice = new int[] { 15000, 45000, 1050000, 180000 }
             }
         },
 
@@ -114,7 +114,7 @@ public class CardsPricings
             {
                 price = 6000,
                 upgradePreices = new int[] { 27000, 65000, 160000 },
-                visitPrice = new int[] { 18000, 50000, 75000, 185000 }
+                visitPrice = new int[] { 18000, 50000, 110000, 185000 }
             }
         },
 
@@ -124,7 +124,7 @@ public class CardsPricings
             {
                 price = 8000,
                 upgradePreices = new int[] { 30000, 70000, 170000 },
-                visitPrice = new int[] { 20000, 45000, 80000, 200000 }
+                visitPrice = new int[] { 20000, 45000, 115000, 200000 }
             }
         },
 
@@ -134,7 +134,7 @@ public class CardsPricings
             {
                 price = 10000,
                 upgradePreices = new int[] { 40000, 80000, 180000 },
-                visitPrice = new int[] { 25000, 60000, 100000, 210000 }
+                visitPrice = new int[] { 25000, 60000, 120000, 210000 }
             }
         },
                 
@@ -144,7 +144,7 @@ public class CardsPricings
             {
                 price = 11000,
                 upgradePreices = new int[] { 45000, 85000, 1850000 },
-                visitPrice = new int[] { 26000, 65000, 110000, 220000 }
+                visitPrice = new int[] { 26000, 65000, 130000, 220000 }
             }
         },
 
@@ -222,7 +222,7 @@ public class CardsPricings
             "Rektorat",
             new CardsProperties
             {
-                price = 280000,
+                price = 28000,
                 upgradePreices = new int[] { 110000, 200000, 295000 },
                 visitPrice = new int[] { 65000, 130000, 225000, 360000 }
             }

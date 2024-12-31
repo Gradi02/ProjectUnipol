@@ -60,8 +60,8 @@ public class awaitingSelectState : State
 
             if (Physics.Raycast(ray, out hit, 100, mask))
             {
-                BoardField fl;
-                hit.collider.TryGetComponent<BoardField>(out fl);
+                NormalField fl;
+                hit.collider.TryGetComponent<NormalField>(out fl);
 
                 if (fl != null)
                 {

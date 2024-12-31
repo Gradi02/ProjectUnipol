@@ -12,6 +12,10 @@ public class NormalField : BoardField, IOwnableProperty
     private const int maxLevel = 5;
     private GameObject buildingsReference;
 
+    [Header("Juwenalia")]
+    [SerializeField] private GameObject juwenaliaModel;
+    [SerializeField] private ParticleSystem fireworks;
+
 
     private void Start()
     {
@@ -98,11 +102,15 @@ public class NormalField : BoardField, IOwnableProperty
 
     public int GetCurrentVisitPrice()
     {
+        if(gameManager.juwenaliaField == this)
+            return (int)(property.visitPrices[property.level - 1] * gameManager.juwenaliaPricing[gameManager.juwenaliaPricePointer]);
+
         return property.visitPrices[property.level - 1];
     }
 
     public void ResetField()
     {
+        property.owner.ownedProperties.Remove(this);
         property.owner = null;
         property.level = 0;
         visitPrice.text = "";
@@ -170,5 +178,33 @@ public class NormalField : BoardField, IOwnableProperty
                 visitPrice.text = $"{GetCurrentVisitPrice() / 1000000}M";
             }
         }
+    }
+
+
+
+    public void StartJuwenalia()
+    {
+        if (gameManager.juwenaliaField != null)
+        {
+            NormalField end = gameManager.juwenaliaField;
+            gameManager.juwenaliaField = null;
+            end.EndJuwenalia();
+        }
+
+        gameManager.juwenaliaField = this;
+        gameManager.juwenaliaPricePointer++;
+        if (gameManager.juwenaliaPricePointer >= gameManager.juwenaliaPricing.Length)
+            gameManager.juwenaliaPricePointer = gameManager.juwenaliaPricing.Length - 1;
+
+        juwenaliaModel.SetActive(true);
+        fireworks.Play();
+
+        FormatString();
+    }
+
+    public void EndJuwenalia()
+    {
+        juwenaliaModel.SetActive(false);
+        FormatString();
     }
 }
