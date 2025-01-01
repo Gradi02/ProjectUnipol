@@ -523,6 +523,16 @@ MonoBehaviour:
   - {fileID: 1592104999}
   - {fileID: 992068308}
   - {fileID: 1975201294}
+  juwenaliaField: {fileID: 0}
+  juwenaliaPricing:
+  - 1.25
+  - 1.3
+  - 1.4
+  - 1.5
+  - 1.75
+  - 2
+  - 2.25
+  - 2.5
   board: {fileID: 2102300334}
 --- !u!4 &120711435
 Transform:
@@ -3511,6 +3521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45d684bbe42500408306450c6d70494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kostka: {fileID: 0}
 --- !u!1 &676439440
 GameObject:
   m_ObjectHideFlags: 0
@@ -12236,6 +12247,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1930801097}
   m_CullTransparentMesh: 1
+--- !u!1001 &1939809807
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2436184952254215064, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_Name
+      value: kostka
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5141723934996644879, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7545761908736945291, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 612bcbb75256c7b4db8f6a6e12c1224e, type: 3}
 --- !u!1001 &1948470837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15108,11 +15179,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fname: {fileID: 8368961239139331295}
   ramka: {fileID: 3249549524816257385}
+  selectedBox: {fileID: 0}
   property:
     fieldname: start
     owner: {fileID: 0}
-    level: 0
     currentValue: 0
+    level: 0
 --- !u!23 &8502760547467885315
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15172,11 +15244,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fname: {fileID: 8368961239526411571}
   ramka: {fileID: 3249549524697596037}
+  selectedBox: {fileID: 0}
   property:
     fieldname: dworzec fabryczna
     owner: {fileID: 0}
-    level: 0
     currentValue: 0
+    level: 0
 --- !u!23 &8502760548224114385
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15236,11 +15309,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fname: {fileID: 8368961240145455329}
   ramka: {fileID: 3249549523810133335}
+  selectedBox: {fileID: 0}
   property:
     fieldname: warunek
     owner: {fileID: 0}
-    level: 0
     currentValue: 0
+    level: 0
 --- !u!23 &8502760548989856045
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15300,11 +15374,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fname: {fileID: 8368961240957296413}
   ramka: {fileID: 3249549522977313451}
+  selectedBox: {fileID: 0}
   property:
     fieldname: 
     owner: {fileID: 0}
-    level: 0
     currentValue: 0
+    level: 0
 --- !u!114 &8543606711103043877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15720,6 +15795,7 @@ SceneRoots:
   - {fileID: 573287418}
   - {fileID: 2102300335}
   - {fileID: 1808007876}
+  - {fileID: 1939809807}
   - {fileID: 1770994913}
   - {fileID: 1973791319}
   - {fileID: 389765256}
