@@ -110,11 +110,11 @@ public class NormalField : BoardField, IOwnableProperty
 
     public void ResetField()
     {
-        property.owner.ownedProperties.Remove(this);
         property.owner = null;
         property.level = 0;
         visitPrice.text = "";
         UpdateBuildingCount();
+        EndJuwenalia(); //dofixa
     }
     public void OnBuy(Player pl)
     {

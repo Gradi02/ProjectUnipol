@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
             }
         }
 
+        ownedProperties.Clear();
         overlayCard.SetCashText("FAILED");
 
         GameManager.instance.CheckForWin();
