@@ -131,6 +131,8 @@ public class awaitingSellState : State
                 field.selectedBox.SetActive(false);
             }
 
+            //usuwanie z player owned properties
+
             foreach (BoardField field in currentPlayer.ownedProperties)
             {
                 field.GetComponent<IOwnableProperty>().FormatString();
