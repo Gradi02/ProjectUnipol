@@ -19,9 +19,7 @@ public class awaitingRollDecisionState : State
 
     private void HandleRollDecision()
     {
-        gameManager.rollButton.interactable = true;
-        gameManager.surrenderButton.interactable = true;
-        gameManager.playerTurnCanva.SetActive(true);
+        gameManager.canvaManager.SetCanvaActivity(true, true, true, false, false, false, $"Kolej gracza {currentPlayer.playerName}!");
     }
 
 

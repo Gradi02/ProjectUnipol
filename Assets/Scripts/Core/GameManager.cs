@@ -22,10 +22,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Material[] playersMaterials;
 
     [Header("UI")]
+    public CanvaManager canvaManager;
     public Image cardSprite;
-    public GameObject transitionCanva, playerTurnCanva, cardCanva, buyCanva, upgradeCanva, sellCanva;
-    public TextMeshProUGUI transitionText, buyText, upgradeText, cardDesc, cardTitle, sellValue;
-    public Button rollButton, surrenderButton, confirmSellButton;
+    public GameObject transitionCanva, cardCanva, upgradeCanva;
+    public TextMeshProUGUI transitionText, upgradeText, cardDesc, cardTitle;
     public Button[] upgrades;
     public Color defaultColor, selectedColor;
     public TextMeshProUGUI[] upgradesText;

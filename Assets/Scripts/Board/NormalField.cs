@@ -114,7 +114,12 @@ public class NormalField : BoardField, IOwnableProperty
         property.level = 0;
         visitPrice.text = "";
         UpdateBuildingCount();
-        EndJuwenalia(); //dofixa
+
+        if (gameManager.juwenaliaField == this)
+        {
+            gameManager.juwenaliaField = null;
+            EndJuwenalia();
+        }
     }
     public void OnBuy(Player pl)
     {

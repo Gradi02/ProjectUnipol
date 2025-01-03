@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class awaitingRollState : State
@@ -28,8 +27,7 @@ public class awaitingRollState : State
 
     private IEnumerator IERollAnimation()
     {
-
-        gameManager.playerTurnCanva.SetActive(false);
+        gameManager.canvaManager.SetCanvaActivity(false, true, false, false, false, true, "");
 
         int k1 = UnityEngine.Random.Range(1, 6);
         int k2 = UnityEngine.Random.Range(1, 6);

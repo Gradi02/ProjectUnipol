@@ -516,7 +516,7 @@ MonoBehaviour:
   ramka: {fileID: 3249549523066162556}
   selectedBox: {fileID: 0}
   property:
-    fieldname: Los
+    fieldname: Szansa
     owner: {fileID: 0}
     currentValue: 0
     level: 0
