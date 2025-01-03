@@ -13,11 +13,9 @@ public class endTurnState : State
 
     private void HandleNextTurn()
     {
-        gameManager.playerTurnCanva.SetActive(false);
         gameManager.cardCanva.SetActive(false);
-        gameManager.buyCanva.SetActive(false);
         gameManager.upgradeCanva.SetActive(false);
-        gameManager.sellCanva.SetActive(false);
+        gameManager.canvaManager.SetCanvaActivity(false, false, false, false, false, false, "");
 
         if (gameManager.dublet)
         {

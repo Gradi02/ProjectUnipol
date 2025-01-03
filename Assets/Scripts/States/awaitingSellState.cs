@@ -15,6 +15,7 @@ public class awaitingSellState : State
 
     public override void Execute()
     {
+        selectedValue = 0;
         requiredValue = currentField.GetComponent<IOwnableProperty>().GetCurrentVisitPrice();
 
         StartCoroutine(IEChooseSellAnimation());
@@ -38,8 +39,8 @@ public class awaitingSellState : State
             }
         }
 
-        gameManager.sellValue.text = $"Otrzymasz\n${selectedValue}\nza wybrane pola!";
-        gameManager.sellCanva.SetActive(true);
+        string s = $"Otrzymasz\n${selectedValue}\nza wybrane pola!";
+        gameManager.canvaManager.SetCanvaActivity(true, false, true, false, false, true, s);
         isRayActive = true;
 
         yield return null;
@@ -49,7 +50,7 @@ public class awaitingSellState : State
     private void Update()
     {
         if (!isRayActive) return;
-        gameManager.confirmSellButton.interactable = (selectedValue + currentPlayer.money) >= requiredValue;
+        gameManager.canvaManager.ConfirmButtonInteractable((selectedValue + currentPlayer.money) >= requiredValue);
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -90,7 +91,8 @@ public class awaitingSellState : State
                             fl.selectedBox.SetActive(true);
                         }
 
-                        gameManager.sellValue.text = $"Otrzymasz\n${selectedValue}\nza wybrane pola!";
+                        string s = $"Otrzymasz\n${selectedValue}\nza wybrane pola!";
+                        gameManager.canvaManager.SetCanvaActivity(true, false, true, false, false, true, s);
                     }
                 }
             }
@@ -114,9 +116,9 @@ public class awaitingSellState : State
         movedFields.Clear();
         isRayActive = false;
         plane.SetActive(false);
-        gameManager.sellCanva.SetActive(false);
+        gameManager.canvaManager.SetCanvaActivity(false, true, false, false, false, true, "");
 
-        if(surrender)
+        if (surrender)
         {
             if (currentField.GetComponent<IOwnableProperty>() != null)
             {
@@ -132,6 +134,7 @@ public class awaitingSellState : State
             }
 
             //usuwanie z player owned properties
+            currentPlayer.ownedProperties.RemoveAll(x => selectedFields.Contains(x));
 
             foreach (BoardField field in currentPlayer.ownedProperties)
             {
