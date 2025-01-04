@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     public PlayerOverlayCard overlayCard { get; private set; }
     public string playerName { get; set; }
 
-    private int _money = 100000;
+    private int _money = 1000000;
     public int money 
     {
         get => _money;

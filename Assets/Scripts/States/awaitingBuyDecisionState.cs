@@ -15,7 +15,7 @@ public class awaitingBuyDecisionState : State
 
     private void BuyHandle()
     {
-        string s = $"Do You Want To Buy {currentField.property.fieldname} For {currentField.property.price}?";
+        string s = $"Chcesz zakupiæ pole {currentField.property.fieldname} za {currentField.property.price}?";
         gameManager.canvaManager.SetCanvaActivity(true, false, false, true, true, false, s);
     }
 

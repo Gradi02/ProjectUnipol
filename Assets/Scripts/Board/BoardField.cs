@@ -7,7 +7,7 @@ public abstract class BoardField : MonoBehaviour
 {
     protected GameManager gameManager => GameManager.instance;
     [SerializeField] protected TextMeshProUGUI fname;
-    [SerializeField] protected Image ramka;
+    [SerializeField] protected Image priceBG;
     public GameObject selectedBox;
     private int startMoneyBonus = 100000;
     public PropertyField property;
@@ -38,7 +38,25 @@ public abstract class BoardField : MonoBehaviour
         }
     };
 
+    public Country country { get; set; } = null;
 
+
+
+    public void SetCountryColor(Color c)
+    {
+        if(priceBG != null)
+        {
+            priceBG.color = c;
+        }
+    }
+
+    public void UpdateMonopolyStatus()
+    {
+        if(country != null)
+        {
+            //particle?
+        }
+    }
 
 
     public void OnPlayerVisitEnter(Player pl, float time)
@@ -109,12 +127,28 @@ public abstract class BoardField : MonoBehaviour
 public class PropertyField
 {
     public string fieldname;
-    public Player owner = null;
     [HideInInspector] public int currentValue = 0;
     [HideInInspector] public int level = 0;
     [HideInInspector] public int price => Board.pricingsInstance.prices[fieldname].price;
     [HideInInspector] public int[] upgradePrices => Board.pricingsInstance.prices[fieldname].upgradePreices;
     [HideInInspector] public int[] visitPrices => Board.pricingsInstance.prices[fieldname].visitPrice;
+    
+    private Player _owner = null;
+    public Player owner
+    {
+        get
+        {
+            return _owner;
+        }
+        set
+        {
+            if(value != _owner)
+            {
+                _owner = value;
+                GameManager.instance.board.CheckForMonopoly();
+            }
+        }
+    }
 }
 
 
