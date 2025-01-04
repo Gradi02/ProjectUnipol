@@ -12629,6 +12629,44 @@ MonoBehaviour:
   - {fileID: 1950631753}
   - {fileID: 734780830}
   - {fileID: 797742559}
+  countries:
+  - color: {r: 0.7254902, g: 0.9843137, b: 0.7529412, a: 1}
+    fields:
+    - {fileID: 1948470839}
+    - {fileID: 483267111}
+    - {fileID: 1353973318}
+  - color: {r: 0.59607846, g: 0.9607843, b: 0.88235295, a: 1}
+    fields:
+    - {fileID: 1192857620}
+    - {fileID: 1165042225}
+    - {fileID: 826414236}
+  - color: {r: 0.35686275, g: 0.88235295, b: 0.93333334, a: 1}
+    fields:
+    - {fileID: 1453598595}
+    - {fileID: 1625999923}
+    - {fileID: 2095367485}
+  - color: {r: 0.5647059, g: 0.85882354, b: 0.95686275, a: 1}
+    fields:
+    - {fileID: 1812873495}
+    - {fileID: 1716035362}
+  - color: {r: 0.6392157, g: 0.76862746, b: 0.9529412, a: 1}
+    fields:
+    - {fileID: 1686075063}
+    - {fileID: 1565181972}
+  - color: {r: 0.8117647, g: 0.7294118, b: 0.9411765, a: 1}
+    fields:
+    - {fileID: 944529074}
+    - {fileID: 1361536561}
+    - {fileID: 1715159940}
+  - color: {r: 0.99215686, g: 0.89411765, b: 0.8117647, a: 1}
+    fields:
+    - {fileID: 1498253556}
+    - {fileID: 2008179301}
+    - {fileID: 1860186776}
+  - color: {r: 1, g: 0.8117647, b: 0.8235294, a: 1}
+    fields:
+    - {fileID: 1950631753}
+    - {fileID: 797742559}
 --- !u!4 &2102300335
 Transform:
   m_ObjectHideFlags: 0
@@ -14396,7 +14434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fname: {fileID: 8368961239139331295}
-  ramka: {fileID: 3249549524816257385}
+  priceBG: {fileID: 0}
   selectedBox: {fileID: 0}
   property:
     fieldname: start
@@ -14461,7 +14499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fname: {fileID: 8368961239526411571}
-  ramka: {fileID: 3249549524697596037}
+  priceBG: {fileID: 0}
   selectedBox: {fileID: 0}
   property:
     fieldname: parking
@@ -14526,7 +14564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fname: {fileID: 8368961240145455329}
-  ramka: {fileID: 3249549523810133335}
+  priceBG: {fileID: 0}
   selectedBox: {fileID: 0}
   property:
     fieldname: warunek
@@ -14591,7 +14629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fname: {fileID: 8368961240957296413}
-  ramka: {fileID: 3249549522977313451}
+  priceBG: {fileID: 0}
   selectedBox: {fileID: 0}
   property:
     fieldname: Juwenalia

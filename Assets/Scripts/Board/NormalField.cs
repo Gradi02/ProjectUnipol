@@ -103,7 +103,7 @@ public class NormalField : BoardField, IOwnableProperty
     public int GetCurrentVisitPrice()
     {
         if(gameManager.juwenaliaField == this)
-            return (int)(property.visitPrices[property.level - 1] * gameManager.juwenaliaPricing[gameManager.juwenaliaPricePointer]);
+            return Mathf.RoundToInt(property.visitPrices[property.level - 1] * gameManager.juwenaliaPricing[gameManager.juwenaliaPricePointer]);
 
         return property.visitPrices[property.level - 1];
     }

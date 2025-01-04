@@ -37,14 +37,9 @@ public class awaitingRollState : State
         int num = k1 + k2;
         if (k1 == k2)
         {
-            gameManager.AddEvent("Double Throw!");
+            gameManager.AddEvent("Dublet!");
             gameManager.dublet = true;
         }
-        else
-        {
-            gameManager.AddEvent($"{k1} : {k2}");
-        }
-
 
         gameManager.board.MovePlayer(gameManager.players[gameManager.currentPlayerIndex], num);
 

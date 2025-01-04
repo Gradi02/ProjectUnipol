@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
         while (!players[currentPlayerIndex].isActive || players[currentPlayerIndex].stopTurns > 0);
         
 
-        string t = $"{players[currentPlayerIndex].playerName}'s Turn!";
+        string t = $"Kolej gracza {players[currentPlayerIndex].playerName}!";
         AddEvent(t);
 
         //change state
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
     {
         transitionText.text = title;
         transitionCanva.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         transitionCanva.SetActive(false);
 
         isEventEnded = true;

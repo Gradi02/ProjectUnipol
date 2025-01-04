@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fname: {fileID: 1435921344213686658}
-  ramka: {fileID: 8665844287975213331}
+  priceBG: {fileID: 4837554489422586927}
   selectedBox: {fileID: 8744444073012380442}
   property:
     fieldname: 
@@ -5721,23 +5721,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6769004573877264819, guid: 1afa076e752483c4591d010cffa559e0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.35
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6769004573877264819, guid: 1afa076e752483c4591d010cffa559e0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.9
+      value: 3.5000002
       objectReference: {fileID: 0}
     - target: {fileID: 6769004573877264819, guid: 1afa076e752483c4591d010cffa559e0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6533333
+      value: 0.46666667
       objectReference: {fileID: 0}
     - target: {fileID: 6769004573877264819, guid: 1afa076e752483c4591d010cffa559e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 6769004573877264819, guid: 1afa076e752483c4591d010cffa559e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 6769004573877264819, guid: 1afa076e752483c4591d010cffa559e0, type: 3}
       propertyPath: m_LocalPosition.z

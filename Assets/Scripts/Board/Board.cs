@@ -6,6 +6,7 @@ public class Board : MonoBehaviour
 {
     public static CardsPricings pricingsInstance;
     public BoardField[] fields;
+    public Country[] countries;
     private Vector3[] offsets = {
         new Vector3(0.15f, 0.25f, 0.15f),
         new Vector3(0.15f, 0.25f, -0.15f),
@@ -18,6 +19,17 @@ public class Board : MonoBehaviour
         if(pricingsInstance == null)
         {
             pricingsInstance = new CardsPricings();
+        }
+    }
+
+    private void Start()
+    {
+        foreach(var b in countries)
+        {
+            foreach(BoardField f in b.fields)
+            {
+                f.SetCountryColor(b.color);
+            }
         }
     }
 
@@ -78,6 +90,14 @@ public class Board : MonoBehaviour
         fields[pl.currentPosition].OnPlayerLand(pl);
     }
 }
+
+[System.Serializable]
+public class Country
+{
+    public Color color;
+    public BoardField[] fields;
+}
+
 public class CardsProperties
 {
     public int price;//1

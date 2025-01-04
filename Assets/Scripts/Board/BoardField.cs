@@ -7,7 +7,7 @@ public abstract class BoardField : MonoBehaviour
 {
     protected GameManager gameManager => GameManager.instance;
     [SerializeField] protected TextMeshProUGUI fname;
-    [SerializeField] protected Image ramka;
+    [SerializeField] protected Image priceBG;
     public GameObject selectedBox;
     private int startMoneyBonus = 100000;
     public PropertyField property;
@@ -39,6 +39,14 @@ public abstract class BoardField : MonoBehaviour
     };
 
 
+
+    public void SetCountryColor(Color c)
+    {
+        if(priceBG != null)
+        {
+            priceBG.color = c;
+        }
+    }
 
 
     public void OnPlayerVisitEnter(Player pl, float time)
