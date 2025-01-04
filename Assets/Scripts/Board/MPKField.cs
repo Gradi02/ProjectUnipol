@@ -178,13 +178,14 @@ public class MPKField : BoardField, IOwnableProperty
     {
         if (property.owner != null)
         {
-            if (GetCurrentVisitPrice() < 1000000)
+            float visitPriceValue = GetCurrentVisitPrice();
+            if (visitPriceValue < 1000000)
             {
-                visitPrice.text = $"{GetCurrentVisitPrice() / 1000}K";
+                visitPrice.text = $"{visitPriceValue / 1000f}K";
             }
             else
             {
-                visitPrice.text = $"{GetCurrentVisitPrice() / 1000000}M";
+                visitPrice.text = $"{visitPriceValue / 1000000f:F1}M";
             }
         }
     }

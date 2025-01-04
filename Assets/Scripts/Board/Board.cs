@@ -29,6 +29,7 @@ public class Board : MonoBehaviour
             foreach(BoardField f in b.fields)
             {
                 f.SetCountryColor(b.color);
+                f.country = b;
             }
         }
     }
@@ -89,13 +90,54 @@ public class Board : MonoBehaviour
         GameManager.instance.isStateEnded = true;
         fields[pl.currentPosition].OnPlayerLand(pl);
     }
+
+    public void CheckForMonopoly()
+    {
+        for(int j=0; j<countries.Length; j++)
+        {
+            Player firstOwner = countries[j].fields[0].property.owner;
+            bool m = true;
+
+            if(firstOwner == null)
+            {
+                m=false;
+            }
+
+            for (int i = 1; i < countries[j].fields.Length; i++) 
+            {
+                if (countries[j].fields[i].property.owner != firstOwner)
+                {
+                    m = false;
+                    break;
+                }
+            }
+
+            if(countries[j].isMonopoly != m)
+                countries[j].ChangeMonopoly(m);
+        }
+    }
 }
 
 [System.Serializable]
 public class Country
 {
+    public bool isMonopoly { get; private set; } = false;
     public Color color;
     public BoardField[] fields;
+
+    public void ChangeMonopoly(bool m)
+    {
+        isMonopoly = m;
+
+        if(isMonopoly)
+            GameManager.instance.AddEvent("Monopol!");
+
+        foreach (BoardField f in fields)
+        {
+            f.UpdateMonopolyStatus();
+            f.GetComponent<IOwnableProperty>().FormatString();
+        }
+    }
 }
 
 public class CardsProperties

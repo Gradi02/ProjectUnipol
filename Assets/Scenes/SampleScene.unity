@@ -14438,7 +14438,6 @@ MonoBehaviour:
   selectedBox: {fileID: 0}
   property:
     fieldname: start
-    owner: {fileID: 0}
     currentValue: 0
     level: 0
 --- !u!23 &8502760547467885315
@@ -14503,7 +14502,6 @@ MonoBehaviour:
   selectedBox: {fileID: 0}
   property:
     fieldname: parking
-    owner: {fileID: 0}
     currentValue: 0
     level: 0
 --- !u!23 &8502760548224114385
@@ -14568,7 +14566,6 @@ MonoBehaviour:
   selectedBox: {fileID: 0}
   property:
     fieldname: warunek
-    owner: {fileID: 0}
     currentValue: 0
     level: 0
 --- !u!23 &8502760548989856045
@@ -14633,7 +14630,6 @@ MonoBehaviour:
   selectedBox: {fileID: 0}
   property:
     fieldname: Juwenalia
-    owner: {fileID: 0}
     currentValue: 0
     level: 0
 --- !u!114 &8543606711103043877

@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
     {
         transitionText.text = title;
         transitionCanva.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         transitionCanva.SetActive(false);
 
         isEventEnded = true;

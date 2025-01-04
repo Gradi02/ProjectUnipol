@@ -102,6 +102,14 @@ public class NormalField : BoardField, IOwnableProperty
 
     public int GetCurrentVisitPrice()
     {
+        if(country != null && country.isMonopoly)
+        {
+            if (gameManager.juwenaliaField == this)
+                return 2 * Mathf.RoundToInt(property.visitPrices[property.level - 1] * gameManager.juwenaliaPricing[gameManager.juwenaliaPricePointer]);
+
+            return property.visitPrices[property.level - 1] * 2;
+        }
+
         if(gameManager.juwenaliaField == this)
             return Mathf.RoundToInt(property.visitPrices[property.level - 1] * gameManager.juwenaliaPricing[gameManager.juwenaliaPricePointer]);
 
@@ -124,8 +132,8 @@ public class NormalField : BoardField, IOwnableProperty
     public void OnBuy(Player pl)
     {
         property.currentValue += property.price/2;
-        property.owner = pl;
         property.level = 1;
+        property.owner = pl;
 
         UpdateBuildingCount();
         FormatString();
@@ -174,13 +182,14 @@ public class NormalField : BoardField, IOwnableProperty
     {
         if (property.owner != null)
         {
-            if (GetCurrentVisitPrice() < 1000000)
+            float visitPriceValue = GetCurrentVisitPrice();
+            if (visitPriceValue < 1000000)
             {
-                visitPrice.text = $"{GetCurrentVisitPrice() / 1000}K";
+                visitPrice.text = $"{visitPriceValue / 1000f}K";
             }
             else
             {
-                visitPrice.text = $"{GetCurrentVisitPrice() / 1000000}M";
+                visitPrice.text = $"{visitPriceValue / 1000000f:F1}M";
             }
         }
     }
@@ -211,5 +220,23 @@ public class NormalField : BoardField, IOwnableProperty
     {
         juwenaliaModel.SetActive(false);
         FormatString();
+    }
+
+    [ContextMenu("Hotel")]
+    public void BuyHotel()
+    {
+        Player currentPlayer = gameManager.players[gameManager.currentPlayerIndex];
+        currentPlayer.AddFieldToList(this);
+
+        IOwnableProperty pr = GetComponent<IOwnableProperty>();
+        if (pr != null)
+        {
+            pr.OnBuy(currentPlayer);
+            pr.OnUpgrade(3);
+        }
+        else
+        {
+            Debug.LogWarning($"{this} nie implementuje IOwnableProperty!");
+        }
     }
 }
