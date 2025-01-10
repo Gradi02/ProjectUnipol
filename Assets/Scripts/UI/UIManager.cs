@@ -18,7 +18,6 @@ public class UIManager : MonoBehaviour
         SwitchCanva("SelectPlayer");
     }
 
-
     public void GoBack()
     {
         SwitchCanva("StartCanva");
@@ -31,7 +30,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    private void SwitchCanva(string canvaName)
+    public void SwitchCanva(string canvaName)
     {
         foreach(GameObject go in canvas)
         {
