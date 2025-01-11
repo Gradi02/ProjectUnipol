@@ -16,10 +16,11 @@ public class NetworkInit : NetworkBehaviour
 
     [SerializeField] private GameObject inputCode;
     [SerializeField] private TextMeshProUGUI code;
+    [SerializeField] private GameObject inputUsername;
 
     private string joincode;
     public static int MaxPlayer = 4;
-    [HideInInspector] public string username;
+
 
 
     public async void Autentication()
@@ -36,6 +37,7 @@ public class NetworkInit : NetworkBehaviour
 
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             uimanager.SwitchCanva("MultiplayerStartCanva");
+            GameManager.instance.isMultiplayer = true;
         }
         catch (AuthenticationException e)
         {
@@ -90,14 +92,12 @@ public class NetworkInit : NetworkBehaviour
     {
         CreateRelay();
 
-        //username = inputName.GetComponent<TMP_InputField>().text;
+        NetworkGameManager.instance.username = inputUsername.GetComponent<TMP_InputField>().text;
         inputCode.SetActive(false);
-
     }
 
     public void JoinGame()
     {
-        //joincode = code.text.Substring(0, 6);
         joincode = inputCode.GetComponent<TMP_InputField>().text;
         if (joincode.Length != 6)
         {
@@ -106,8 +106,8 @@ public class NetworkInit : NetworkBehaviour
         }
 
         JoinRelay(joincode);
-        Debug.Log(joincode);
 
+        NetworkGameManager.instance.username = inputUsername.GetComponent<TMP_InputField>().text;
         inputCode.SetActive(false);
         code.gameObject.SetActive(false);
     }

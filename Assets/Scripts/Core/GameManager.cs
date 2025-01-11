@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance { get; private set; }
     public bool isGameStarted { get; set; } = false;
+
+    public bool isMultiplayer { get; set; } = false;
     public List<Player> players { get; private set; } = new List<Player>();
     public int currentPlayerIndex { get; private set; } = 0;
     public bool dublet { get; set; } = false;
