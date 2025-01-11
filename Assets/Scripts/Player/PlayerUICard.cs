@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Netcode;
 using UnityEngine.UI;
 using TMPro;
 
@@ -12,6 +13,8 @@ public class PlayerUICard : MonoBehaviour
     [SerializeField] private Button readyButtonInteraction;
     [SerializeField] private TextMeshProUGUI buttonText;
     [SerializeField] private TMP_InputField username;
+    public TextMeshProUGUI multiUsername;
+
     public bool ready { get; private set; } = false;
     public string usernameText { get; private set; }
     public Color bgc { get; private set; }
@@ -28,6 +31,8 @@ public class PlayerUICard : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.isMultiplayer) return;
+
         if(username.text != string.Empty)
         {
             readyButtonInteraction.interactable = true;
@@ -45,15 +50,42 @@ public class PlayerUICard : MonoBehaviour
 
     public void SwitchReady()
     {
-        ready = !ready;
+        if (GameManager.instance.isMultiplayer)
+        {
+            NetworkGameManager.instance.SwitchPlayerReadyServerRpc(NetworkManager.Singleton.LocalClientId);
+        }
+        else
+        {
+            ready = !ready;
 
-        if(ready)
+            if (ready)
+            {
+                bgc = m_Color;
+                colorImage.color = m_Color;
+                buttonText.text = "Ready!";
+                readyButton.color = Color.green;
+                usernameText = username.text;
+            }
+            else
+            {
+                buttonText.text = "Not Ready!";
+                readyButton.color = Color.red;
+                colorImage.color = disabledColor;
+            }
+        }
+    }
+
+
+
+
+    public void SwitchMultiReady(bool b)
+    {
+        if (b)
         {
             bgc = m_Color;
             colorImage.color = m_Color;
             buttonText.text = "Ready!";
             readyButton.color = Color.green;
-            usernameText = username.text;
         }
         else
         {
