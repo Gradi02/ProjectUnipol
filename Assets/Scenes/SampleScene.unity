@@ -510,6 +510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 120711435}
+  - component: {fileID: 120711436}
   - component: {fileID: 120711434}
   m_Layer: 0
   m_Name: GAMEMANAGER
@@ -530,6 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d438af8a6c2ba48a9ad4f53ce55048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   isEventEnded: 1
   isStateEnded: 1
   endTurnS: {fileID: 83018068}
@@ -613,6 +615,31 @@ Transform:
   - {fileID: 1332887080}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &120711436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120711433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3636425621
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &120853318
 GameObject:
   m_ObjectHideFlags: 0
@@ -4708,6 +4735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54e7942bbacceab429f8996025406ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   canvas:
   - {fileID: 919202877}
   - {fileID: 775032522}
@@ -10466,9 +10494,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 733783143}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 2101147448}
+        m_TargetAssemblyTypeName: NetworkGameManager, Assembly-CSharp
+        m_MethodName: StartNetworkGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16158,6 +16186,7 @@ MonoBehaviour:
   username: 
   backButton: {fileID: 1230277282}
   startButton: {fileID: 1417503804}
+  uimanager: {fileID: 733783143}
 --- !u!4 &2101147449
 Transform:
   m_ObjectHideFlags: 0

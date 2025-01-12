@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class UIManager : MonoBehaviour
+public class UIManager : NetworkBehaviour
 {
     [SerializeField] private GameObject[] canvas;
     [SerializeField] private PlayerUICard[] uicards;
@@ -43,5 +44,21 @@ public class UIManager : MonoBehaviour
                 go.SetActive(false);
             }
         }
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SwitchCanvaServerRpc(string n)
+    {
+        Debug.Log("IsSpawned: " + GetComponent<NetworkObject>().IsSpawned);
+        Debug.Log("IsOwner: " + GetComponent<NetworkObject>().IsOwner);
+        SwitchCanvaClientRpc(n);
+    }
+
+    [ClientRpc]
+    public void SwitchCanvaClientRpc(string n)
+    {
+        Debug.Log("canva");
+        SwitchCanva(n);
     }
 }

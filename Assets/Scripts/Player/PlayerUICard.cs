@@ -16,7 +16,7 @@ public class PlayerUICard : MonoBehaviour
     public TextMeshProUGUI multiUsername;
 
     public bool ready { get; private set; } = false;
-    public string usernameText { get; private set; }
+    public string usernameText { get; set; }
     public Color bgc { get; private set; }
 
 
@@ -80,6 +80,7 @@ public class PlayerUICard : MonoBehaviour
 
     public void SwitchMultiReady(bool b)
     {
+        ready = b;
         if (b)
         {
             bgc = m_Color;
