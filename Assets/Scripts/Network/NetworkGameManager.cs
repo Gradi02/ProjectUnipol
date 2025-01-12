@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Unity.Netcode;
 
 public class NetworkGameManager : NetworkBehaviour
@@ -9,6 +10,7 @@ public class NetworkGameManager : NetworkBehaviour
     public List<PlayerInfo> clients = new List<PlayerInfo> ();
     [SerializeField] private PlayerUICard[] multiCards;
     [HideInInspector] public string username;
+    [SerializeField] private Button backButton, startButton;
 
     private void Awake()
     {
@@ -22,6 +24,25 @@ public class NetworkGameManager : NetworkBehaviour
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientLeave;
         NetworkManager.Singleton.OnServerStarted += OnHostStart;
         NetworkManager.Singleton.OnServerStopped += OnHostLeave;
+    }
+
+    private void Update()
+    {
+        if (!NetworkManager.Singleton.ServerIsHost) return;
+
+        if (!IsHost)
+        {
+            startButton.interactable = false;
+            return;
+        }
+
+        bool allReady = true;
+        foreach(var c in clients)
+        {
+            if(!c.isReady)
+                allReady = false;
+        }
+        startButton.interactable = allReady && clients.Count > 1;
     }
 
     private void OnApplicationQuit()
@@ -49,9 +70,9 @@ public class NetworkGameManager : NetworkBehaviour
 
     private void OnClientJoin(ulong clientId)
     {
-        if(IsHost)
+        if(NetworkManager.Singleton.LocalClientId == clientId)
         {
-            AddPlayerToListServerRpc(clientId);
+            AddPlayerToListServerRpc(clientId, username);
         }
     }
 
@@ -63,29 +84,40 @@ public class NetworkGameManager : NetworkBehaviour
 
 
 
-    [ClientRpc]
-    private void UpdateCardClientRpc(ulong i)
+    [ServerRpc(RequireOwnership = false)]
+    private void AddPlayerToListServerRpc(ulong id, string un)
     {
-        multiCards[i].multiUsername.text = i.ToString();
-    }
-
-    [ServerRpc]
-    private void AddPlayerToListServerRpc(ulong id)
-    {
-        AddPlayerToListClientRpc(id);
+        PlayerInfo p = new PlayerInfo();
+        p.clientId = id;
+        p.username = un;
+        clients.Add(p);
 
         for (int i = 0; i < clients.Count; i++)
         {
-            UpdateCardClientRpc(clients[i].clientId);
+            AddPlayerToListClientRpc(clients[i].clientId, un);
+            UpdateCardClientRpc(i, clients[i].username);
         }
     }
 
     [ClientRpc]
-    private void AddPlayerToListClientRpc(ulong id)
+    private void AddPlayerToListClientRpc(ulong id, string un)
     {
+        foreach(var c in clients)
+        {
+            if (c.clientId == id)
+                return;
+        }
+
         PlayerInfo p = new PlayerInfo();
         p.clientId = id;
+        p.username = un;
         clients.Add(p);
+    }
+
+    [ClientRpc]
+    private void UpdateCardClientRpc(int i, string un)
+    {
+        multiCards[i].multiUsername.text = un;
     }
 
 
