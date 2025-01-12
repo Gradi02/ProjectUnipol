@@ -11,6 +11,7 @@ public class NetworkGameManager : NetworkBehaviour
     [SerializeField] private PlayerUICard[] multiCards;
     [HideInInspector] public string username;
     [SerializeField] private Button backButton, startButton;
+    [SerializeField] private UIManager uimanager;
 
     private void Awake()
     {
@@ -28,7 +29,7 @@ public class NetworkGameManager : NetworkBehaviour
 
     private void Update()
     {
-        if (!NetworkManager.Singleton.ServerIsHost) return;
+        if (NetworkManager.Singleton == null || !NetworkManager.Singleton.ServerIsHost) return;
 
         if (!IsHost)
         {
@@ -81,8 +82,19 @@ public class NetworkGameManager : NetworkBehaviour
 
     }
 
+    public void StartNetworkGame()
+    {
+        if (IsServer)
+        {
+            Debug.Log("Start: " + NetworkManager.Singleton.ConnectedClientsList.Count);
+            uimanager.SwitchCanvaServerRpc("GameOverlay");
+            GameManager.instance.StartGame(multiCards);
+        }
+    }
 
 
+
+    
 
     [ServerRpc(RequireOwnership = false)]
     private void AddPlayerToListServerRpc(ulong id, string un)
@@ -118,6 +130,7 @@ public class NetworkGameManager : NetworkBehaviour
     private void UpdateCardClientRpc(int i, string un)
     {
         multiCards[i].multiUsername.text = un;
+        multiCards[i].usernameText = un;
     }
 
 

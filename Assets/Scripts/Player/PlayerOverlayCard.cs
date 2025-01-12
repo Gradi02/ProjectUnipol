@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Netcode;
 
 public class PlayerOverlayCard : MonoBehaviour
 {
@@ -26,5 +27,14 @@ public class PlayerOverlayCard : MonoBehaviour
     public void SetCashText(string s)
     {
         cash.text = s;
+    }
+
+
+
+    public void SetupNetworkVersion(string n, Color c)
+    {
+        username.text = n;
+        img.color = c;
+        cash.text = "$1.000.000";
     }
 }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Netcode;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     private Queue<GameEvent> events = new Queue<GameEvent>();
     public bool isEventEnded = true;
@@ -57,33 +58,76 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(PlayerUICard[] p)
     {
-        int idx = 0;
-        for (int i = 0; i < p.Length; i++)
+        if (isMultiplayer)
         {
-            if (p[i].ready)
+            Debug.Log("1");
+            int idx = 0;
+            for (int i = 0; i < p.Length; i++)
             {
-                GameObject newPlayer = Instantiate(playerPrefab);
-                Player newPlayerScript = newPlayer.GetComponent<Player>();
-                newPlayer.GetComponent<MeshRenderer>().material = playersMaterials[i];
-
-                uiPlayersCards[idx].Setup(p[i]);
-                newPlayerScript.SetUp(uiPlayersCards[idx], p[i].usernameText);
-                idx++;
-
-                players.Add(newPlayerScript);
+                if (p[i].ready)
+                {
+                    Debug.Log("2");
+                    SetupPlayerClientRpc(i, idx, p[i].usernameText, p[i].bgc);
+                    idx++;
+                }
             }
+
+            DisableRestClientRpc(idx);
+        }
+        else
+        {
+            int idx = 0;
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (p[i].ready)
+                {
+                    GameObject newPlayer = Instantiate(playerPrefab);
+                    Player newPlayerScript = newPlayer.GetComponent<Player>();
+                    players.Add(newPlayerScript);
+                    newPlayer.GetComponent<MeshRenderer>().material = playersMaterials[i];
+                    uiPlayersCards[idx].Setup(p[i]);
+
+                    newPlayerScript.SetUp(uiPlayersCards[idx], p[i].usernameText);
+                    idx++;
+                }
+            }
+
+            for (int i = idx; i < uiPlayersCards.Length; i++)
+            {
+                uiPlayersCards[i].Disabled();
+            }
+
+            board.SetupPlayers(players);
         }
 
+        currentPlayerIndex = Random.Range(0, players.Count);
+        isGameStarted = true;
+        AddEvent(endTurnS);
+    }
+
+    [ClientRpc]
+    private void SetupPlayerClientRpc(int i, int idx, string username, Color bgc)
+    {
+        Debug.Log("3");
+        GameObject newPlayer = Instantiate(playerPrefab);
+        Player newPlayerScript = newPlayer.GetComponent<Player>();
+        players.Add(newPlayerScript);
+        newPlayer.GetComponent<MeshRenderer>().material = playersMaterials[i];
+        uiPlayersCards[idx].SetupNetworkVersion(username, bgc);
+
+        newPlayerScript.SetUp(uiPlayersCards[idx], username);
+    }
+
+    [ClientRpc]
+    private void DisableRestClientRpc(int idx)
+    {
+        Debug.Log("4");
         for (int i = idx; i < uiPlayersCards.Length; i++)
         {
             uiPlayersCards[i].Disabled();
         }
 
         board.SetupPlayers(players);
-
-        currentPlayerIndex = Random.Range(0, players.Count);
-        isGameStarted = true;
-        AddEvent(endTurnS);
     }
 
     public void CheckForWin()
