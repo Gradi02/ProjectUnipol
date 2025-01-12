@@ -58,8 +58,10 @@ public class NetworkInit : NetworkBehaviour
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
-            NetworkManager.Singleton.StartHost();
-            uimanager.SwitchCanva("MultiplayerSelectPlayer");
+            if (NetworkManager.Singleton.StartHost())
+            {
+                uimanager.SwitchCanva("MultiplayerSelectPlayer");
+            }
         }
         catch (RelayServiceException e)
         {
@@ -79,8 +81,10 @@ public class NetworkInit : NetworkBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
 
-            NetworkManager.Singleton.StartClient();
-            uimanager.SwitchCanva("MultiplayerSelectPlayer");
+            if (NetworkManager.Singleton.StartClient())
+            {
+                uimanager.SwitchCanva("MultiplayerSelectPlayer");
+            }
         }
         catch (RelayServiceException e)
         {

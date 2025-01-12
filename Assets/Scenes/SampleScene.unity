@@ -8436,7 +8436,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1230277283}
   m_OnClick:
     m_PersistentCalls:
@@ -16156,6 +16156,8 @@ MonoBehaviour:
   - {fileID: 499639073}
   - {fileID: 131438475}
   username: 
+  backButton: {fileID: 1230277282}
+  startButton: {fileID: 1417503804}
 --- !u!4 &2101147449
 Transform:
   m_ObjectHideFlags: 0
