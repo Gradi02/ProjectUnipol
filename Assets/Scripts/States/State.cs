@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Netcode;
 
-public abstract class State : MonoBehaviour
+public abstract class State : NetworkBehaviour
 {
     protected GameManager gameManager => GameManager.instance;
     protected Player currentPlayer => gameManager.players[gameManager.currentPlayerIndex];
