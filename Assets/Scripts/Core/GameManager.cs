@@ -148,6 +148,8 @@ public class GameManager : NetworkBehaviour
 
     private void Update()
     {
+        if (isMultiplayer && !IsHost) return;
+
         if(isEventEnded && events.Count > 0)
         {
             isEventEnded = false;
@@ -177,10 +179,14 @@ public class GameManager : NetworkBehaviour
         events.Enqueue(new ChangeStateEvent(s));
     }
 
+
+
     public Card GetRandomCard()
     {
         return cards[Random.Range(0, cards.Count)];
     }
+
+
 
     public void NextPlayer()
     {
