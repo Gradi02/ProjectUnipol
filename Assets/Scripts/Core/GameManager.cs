@@ -14,7 +14,8 @@ public class GameManager : NetworkBehaviour
 
     [Header("States")]
     public State endTurnS;
-    public State awaitRollS, awaitRollDecS, awaitBuyS, awaitUpgrDecS, awaitPayPlayerState, awaitingSellState, awaitCard, awaitSelectS, endGameS;
+    public State awaitRollS, awaitRollDecS, awaitBuyS, awaitUpgrDecS, awaitPayPlayerState, awaitingSellState, awaitCard, awaitSelectS, endGameS, waitForHostS;
+    public List<State> statesList;
 
     [Header("References")]
     [SerializeField] private PlayerOverlayCard[] uiPlayersCards;
@@ -44,6 +45,7 @@ public class GameManager : NetworkBehaviour
     public List<Player> players { get; private set; } = new List<Player>();
     public int currentPlayerIndex { get; private set; } = 0;
     public bool dublet { get; set; } = false;
+    public NetworkVariable<bool> networkDublet = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
 
     public Board board;
@@ -73,6 +75,9 @@ public class GameManager : NetworkBehaviour
             }
 
             DisableRestClientRpc(idx);
+
+            currentPlayerIndex = Random.Range(0, players.Count);
+            AddStateEventClientRpc(endTurnS.name, players[currentPlayerIndex].clientId);
         }
         else
         {
@@ -98,17 +103,16 @@ public class GameManager : NetworkBehaviour
             }
 
             board.SetupPlayers(players);
-        }
 
-        currentPlayerIndex = Random.Range(0, players.Count);
-        isGameStarted = true;
-        AddEvent(endTurnS);
+            currentPlayerIndex = Random.Range(0, players.Count);
+            isGameStarted = true;
+            AddEvent(endTurnS);
+        }
     }
 
     [ClientRpc]
     private void SetupPlayerClientRpc(int i, int idx, string username, Color bgc)
     {
-        Debug.Log("3");
         GameObject newPlayer = Instantiate(playerPrefab);
         Player newPlayerScript = newPlayer.GetComponent<Player>();
         players.Add(newPlayerScript);
@@ -116,18 +120,19 @@ public class GameManager : NetworkBehaviour
         uiPlayersCards[idx].SetupNetworkVersion(username, bgc);
 
         newPlayerScript.SetUp(uiPlayersCards[idx], username);
+        newPlayerScript.clientId = NetworkGameManager.instance.clients[i].clientId;
     }
 
     [ClientRpc]
     private void DisableRestClientRpc(int idx)
     {
-        Debug.Log("4");
         for (int i = idx; i < uiPlayersCards.Length; i++)
         {
             uiPlayersCards[i].Disabled();
         }
 
         board.SetupPlayers(players);
+        isGameStarted = true;
     }
 
     public void CheckForWin()
@@ -148,7 +153,7 @@ public class GameManager : NetworkBehaviour
 
     private void Update()
     {
-        if (isMultiplayer && !IsHost) return;
+        //if (isMultiplayer && !IsHost) return;
 
         if(isEventEnded && events.Count > 0)
         {
@@ -162,11 +167,28 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+
+    //eventy info
     public void AddEvent(string t)
     {
         events.Enqueue(new ShowInfoEvent(t));
     }
 
+    [ClientRpc]
+    public void AddEventClientRpc(string t, ulong targetId)
+    {
+        if(NetworkManager.Singleton.LocalClientId == targetId)
+            events.Enqueue(new ShowInfoEvent(t));
+    }
+
+    [ClientRpc]
+    public void AddEventClientRpc(string t)
+    {
+        events.Enqueue(new ShowInfoEvent(t));
+    }
+
+
+    //eventy state
     public void AddEvent(State s, bool force = false)
     {
         if(force)
@@ -179,6 +201,47 @@ public class GameManager : NetworkBehaviour
         events.Enqueue(new ChangeStateEvent(s));
     }
 
+    [ClientRpc]
+    public void AddStateEventClientRpc(string stateName, bool force = false)
+    {
+        if (force)
+        {
+            isStateEnded = false;
+            events.Clear();
+            isStateEnded = true;
+        }
+
+        State s = statesList.Find(st => st.name == stateName);
+        events.Enqueue(new ChangeStateEvent(s));
+    }
+
+    [ClientRpc]
+    public void AddStateEventClientRpc(string stateName, ulong targetId, bool force = false)
+    {
+        if (NetworkManager.Singleton.LocalClientId == targetId)
+        {
+            if (force)
+            {
+                isStateEnded = false;
+                events.Clear();
+                isStateEnded = true;
+            }
+
+            State s = statesList.Find(st => st.name == stateName);
+            events.Enqueue(new ChangeStateEvent(s));
+        }
+        else
+        {
+            if (force)
+            {
+                isStateEnded = false;
+                events.Clear();
+                isStateEnded = true;
+            }
+
+            events.Enqueue(new ChangeStateEvent(waitForHostS));
+        }
+    }
 
 
     public Card GetRandomCard()
@@ -205,11 +268,17 @@ public class GameManager : NetworkBehaviour
                     int trn = players[currentPlayerIndex].stopTurns;
                     string strend = (trn == 1) ? $"{trn} ture!" : $"{trn} tury!";
 
-                    AddEvent($"Gracz {players[currentPlayerIndex].playerName} jest jeszcze uziemiony przez " + strend);
+                    if(isMultiplayer)
+                        AddEventClientRpc($"Gracz {players[currentPlayerIndex].playerName} jest jeszcze uziemiony przez " + strend);
+                    else
+                        AddEvent($"Gracz {players[currentPlayerIndex].playerName} jest jeszcze uziemiony przez " + strend);
                 }
                 else
                 {
-                    AddEvent($"Gracz {players[currentPlayerIndex].playerName} zdo³a³ ju¿ op³aciæ warunek!");
+                    if (isMultiplayer)
+                        AddEventClientRpc($"Gracz {players[currentPlayerIndex].playerName} zdo³a³ ju¿ op³aciæ warunek!");
+                    else
+                        AddEvent($"Gracz {players[currentPlayerIndex].playerName} zdo³a³ ju¿ op³aciæ warunek!");
                 }
             }
         } 
@@ -217,11 +286,14 @@ public class GameManager : NetworkBehaviour
         
 
         string t = $"Kolej gracza {players[currentPlayerIndex].playerName}!";
-        AddEvent(t);
+        if (isMultiplayer)
+            AddEventClientRpc(t);
+        else
+            AddEvent(t);
 
         //change state
         isStateEnded = true;
-        AddEvent(awaitRollDecS);
+        AddStateEventClientRpc(awaitRollDecS.name, players[currentPlayerIndex].clientId);
     }
 
     public void ChangeState(State newState)

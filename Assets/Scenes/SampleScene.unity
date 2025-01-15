@@ -300,6 +300,77 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &34522433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 34522434}
+  - component: {fileID: 34522436}
+  - component: {fileID: 34522435}
+  m_Layer: 0
+  m_Name: waitHostState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &34522434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34522433}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 120711435}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &34522435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34522433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4139729948
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &34522436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34522433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb014e0ff8af28d42b970779664fce51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &76868885
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,6 +696,19 @@ MonoBehaviour:
   awaitCard: {fileID: 1225593129}
   awaitSelectS: {fileID: 1332887081}
   endGameS: {fileID: 1784531679}
+  waitForHostS: {fileID: 34522436}
+  statesList:
+  - {fileID: 83018068}
+  - {fileID: 675879623}
+  - {fileID: 29510547}
+  - {fileID: 5855661}
+  - {fileID: 1662644697}
+  - {fileID: 2046434065}
+  - {fileID: 969129552}
+  - {fileID: 1225593129}
+  - {fileID: 1784531679}
+  - {fileID: 1332887081}
+  - {fileID: 34522436}
   uiPlayersCards:
   - {fileID: 9056187705609437014}
   - {fileID: 1285297635}
@@ -670,6 +754,8 @@ MonoBehaviour:
   - 2
   - 2.25
   - 2.5
+  networkDublet:
+    m_InternalValue: 0
   board: {fileID: 2102300334}
 --- !u!4 &120711435
 Transform:
@@ -694,6 +780,7 @@ Transform:
   - {fileID: 1225593128}
   - {fileID: 1784531678}
   - {fileID: 1332887080}
+  - {fileID: 34522434}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &120711436
