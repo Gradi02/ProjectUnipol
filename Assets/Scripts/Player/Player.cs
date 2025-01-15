@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public bool isActive { get; set; } = true;
     public int currentPosition { get; set; } = 0;
     public int stopTurns { get; set; } = 0;
+    public ulong clientId { get; set; }
 
     public void SetUp(PlayerOverlayCard c, string usn)
     {
